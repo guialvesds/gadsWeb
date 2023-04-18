@@ -2,12 +2,12 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { DesktopRoutingModule } from './desktop-routing.module';
-import { HomeComponent } from './home/home.component';
+import { DesktopComponent } from './desktop.component';
 
 
 @NgModule({
   declarations: [
-    HomeComponent
+    DesktopComponent
   ],
   imports: [
     CommonModule,
