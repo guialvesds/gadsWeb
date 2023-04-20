@@ -2,6 +2,35 @@
   <section class="card">
     <div class="container-forms">
       <h1>Login</h1>
+      <form class="example-form">
+        <!-- Email -->
+        <mat-form-field class="example-full-width">
+          <mat-label>E-mail</mat-label>
+          <input type="email" matInput [formControl]="emailFormControl" [errorStateMatcher]="matcher"
+            placeholder="Ex. admin@admin">
+          <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+            Digite um e-mail válido.
+          </mat-error>
+          <mat-error *ngIf="emailFormControl.hasError('required')">
+            E-mail é <strong>necessário.</strong>
+          </mat-error>
+        </mat-form-field>
+        <!-- Password -->
+        <mat-form-field appearance="fill" class="example-full-width">
+          <mat-label>Senha</mat-label>
+          <input matInput [type]="hide ? 'password' : 'text'">
+          <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hide">
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+        </mat-form-field>
+        <!-- Button -->
+        <div class="button-form">
+          <button mat-flat-button color="primary">Entrar</button>
+        </div>
+      </form>
+      <!-- Footer Text -->
+      <h3>Ainda não possui conta? <strong><a href="#">Crie a sua aqui!</a></strong></h3>
     </div>
     <div class="container-img">
       <img src="../../../../assets/login-gif.gif" alt="">

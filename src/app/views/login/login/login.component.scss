@@ -23,11 +23,69 @@ main {
       padding: 20px;
       display: flex;
       flex-direction: column;
+      justify-content: space-around;
       align-items: center;
 
       h1 {
-        font-size: 2rem;
+        font-size: 3em;
+        font-weight: bold;
+        // margin-bottom: 2rem;
+        color: #F98E77;
+      }
 
+      h3 {
+        font-size: 1.1em;
+        font-weight: 300;
+
+        a {
+          color: #1B7F8C;
+        }
+      }
+
+      .example-form {
+        min-width: 45%;
+        max-width: 80%;
+        width: 80%;
+      }
+
+      .example-full-width {
+        width: 100%;
+        margin-top: 0.4em;
+      }
+
+      mat-form-field {
+        button {
+          margin-right: 0.6rem;
+          border: none;
+          background-color: transparent;
+          cursor: pointer;
+        }
+      }
+
+      .button-form {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        button {
+          margin: auto 0;
+          width: 100%;
+          padding: 0.5rem;
+          border: none;
+          cursor: pointer;
+          border-radius: 5px;
+          background-color: #F98E77;
+
+          color: white;
+          font-size: 1.1rem;
+          font-weight: bold;
+          letter-spacing: 2px;
+
+          &:hover {
+            background-color: #e97a61;
+          }
+        }
       }
     }
 
@@ -37,10 +95,10 @@ main {
       display: flex;
       justify-content: center;
       align-items: center;
-      border-left: 2px solid rgba(128, 128, 128, 0.363);
+      // border-left: 2px solid rgba(128, 128, 128, 0.363);
 
       img {
-        max-width: 85%;
+        max-width: 90%;
       }
     }
 
@@ -54,6 +112,10 @@ main {
 
       .container-img {
         height: 30%;
+
+        img {
+          max-width: 55%;
+        }
       }
     }
   }
@@ -64,6 +126,14 @@ main {
       flex-direction: column-reverse;
       height: 100%;
       width: 100%;
+
+      .container-img {
+        height: 30%;
+
+        img {
+          max-width: 50%;
+        }
+      }
     }
   }
 }
