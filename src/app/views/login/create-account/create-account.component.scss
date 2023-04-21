@@ -1,0 +1,160 @@
+main {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100%;
+  background-color: #EBEBEB;
+
+  .card {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: 80%;
+    width: 70%;
+    border-radius: 10px;
+    background-color: #ffff;
+
+    .container-forms {
+      width: 50%;
+      height: 100%;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      align-items: center;
+
+      h1 {
+        font-size: 3em;
+        font-weight: bold;
+        color: #F98E77;
+        letter-spacing: 2px;
+        margin: 0;
+      }
+
+      h3 {
+        display: none;
+      }
+
+      .example-form {
+        min-width: 45%;
+        max-width: 80%;
+        width: 80%;
+      }
+
+      .example-full-width {
+        width: 100%;
+      }
+
+      mat-form-field {
+        // height: 22%;
+        button {
+          margin-right: 0.6rem;
+          border: none;
+          background-color: transparent;
+          cursor: pointer;
+        }
+      }
+
+      .button-form {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        button {
+          margin: auto 0;
+          width: 100%;
+          padding: 0.5rem;
+          border: none;
+          cursor: pointer;
+          border-radius: 5px;
+          background-color: #F98E77;
+
+          color: white;
+          font-size: 1.1rem;
+          font-weight: bold;
+          letter-spacing: 2px;
+
+          &:hover {
+            background-color: #e97a61;
+          }
+        }
+      }
+    }
+
+    .container-img {
+      width: 50%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      align-items: center;
+      // border-left: 2px solid rgba(128, 128, 128, 0.363);
+
+      img {
+        max-width: 80%;
+      }
+
+      h3 {
+        font-size: 1.1em;
+        font-weight: 300;
+
+        a {
+          color: #1B7F8C;
+        }
+      }
+    }
+
+    @media print,
+    screen and (max-width: 912px) {
+
+      .container-forms,
+      .container-img {
+        width: 100%;
+      }
+
+      .container-forms {
+
+        h3 {
+          display: inline;
+
+          a {
+            color: #1B7F8C;
+          }
+        }
+      }
+
+      .container-img {
+        height: 30%;
+
+        img {
+          max-width: 55%;
+        }
+
+        h3 {
+          display: none;
+        }
+      }
+    }
+  }
+
+  @media print,
+  screen and (max-width: 912px) {
+    .card {
+      flex-direction: column;
+      height: 100%;
+      width: 100%;
+
+      .container-img {
+        height: 30%;
+
+        img {
+          max-width: 50%;
+        }
+      }
+    }
+  }
+}

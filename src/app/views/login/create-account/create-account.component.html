@@ -1,1 +1,62 @@
-<p>create-account works!</p>
+<main>
+  <section class="card">
+    <div class="container-img">
+      <img src="../../../../assets/creatAccount-gif.gif" alt="">
+      <!-- Footer Text -->
+      <h3>Já possui conta? <strong><a routerLink="">logue aqui!</a></strong></h3>
+    </div>
+    <div class="container-forms">
+      <h1>Criar Conta</h1>
+      <form class="example-form" [formGroup]="createAccForm" (submit)="create($event)">
+        <!-- Nome -->
+        <mat-form-field class="example-full-width">
+          <mat-label>Nome</mat-label>
+          <input type="text" matInput formControlName="primary_name" [errorStateMatcher]="matcher"
+            placeholder="Admin" >
+          <mat-error *ngIf="formControl.hasError('required')">
+            Nome é <strong>necessário.</strong>
+          </mat-error>
+        </mat-form-field>
+        <!-- Sobrenome -->
+        <mat-form-field class="example-full-width">
+          <mat-label>Sobrenome</mat-label>
+          <input type="text" matInput formControlName="second_name" [errorStateMatcher]="matcher"
+            placeholder="Master" >
+          <mat-error *ngIf="formControl.hasError('required')">
+            Sobrenome é <strong>necessário.</strong>
+          </mat-error>
+        </mat-form-field>
+           <!-- Email -->
+        <mat-form-field class="example-full-width">
+          <mat-label>E-mail</mat-label>
+          <input type="email" matInput formControlName="email" [errorStateMatcher]="matcher"
+            placeholder="Ex. admin@admin.com" >
+          <mat-error *ngIf="formControl.hasError('email') && !formControl.hasError('required')">
+            Digite um e-mail válido.
+          </mat-error>
+          <mat-error *ngIf="formControl.hasError('required')">
+            E-mail é <strong>necessário.</strong>
+          </mat-error>
+        </mat-form-field>
+        <!-- Password -->
+        <mat-form-field appearance="fill" class="example-full-width">
+          <mat-label>Senha</mat-label>
+          <input matInput formControlName="password" [type]="hide ? 'password' : 'text'" placeholder="Ex. @123A4b" >
+          <button mat-icon-button matSuffix (click)="preventDefPass($event)" [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hide">
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+          <mat-error *ngIf="formControl.hasError('required')">
+           Senha é <strong>necessário.</strong>
+          </mat-error>
+        </mat-form-field>
+        <!-- Button -->
+        <div class="button-form">
+          <button type="submit">Cadastrar</button>
+        </div>
+      </form>
+      <!-- Footer Text Responsiv -->
+      <h3>Já possui conta? <strong><a routerLink="">logue aqui!</a></strong></h3>
+    </div>
+  </section>
+</main>
