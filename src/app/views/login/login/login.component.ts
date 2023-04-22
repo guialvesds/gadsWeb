@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {
+  FormBuilder,
   FormControl,
   FormGroup,
   FormGroupDirective,
@@ -8,6 +9,7 @@ import {
 } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { Router } from '@angular/router';
+import { LoginService } from 'src/app/services/login.service';
 
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -35,7 +37,7 @@ export class LoginComponent implements OnInit {
     Validators.email,
   ]);
 
-  public loginForm = new FormGroup({
+  public loginForm: FormGroup = this._formBuild.group({
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required]),
   });
@@ -43,10 +45,18 @@ export class LoginComponent implements OnInit {
   public matcher = new MyErrorStateMatcher();
   public hide = true;
   public enableButton = false;
+  public erroMessage = '';
+  public errorRequest = false;
 
-  constructor(private _route: Router) {}
+  constructor(
+    private _formBuild: FormBuilder,
+    private _route: Router,
+    private _login: LoginService
+  ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.loginForm;
+  }
 
   public preventDefPass(event: Event): boolean {
     event.preventDefault();
@@ -55,10 +65,28 @@ export class LoginComponent implements OnInit {
 
   public login(event: Event): void {
     event.preventDefault();
-    if (this.loginForm.value.password === '') {
+    if (this.loginForm.value === '') {
       return;
     }
-    this.enableButton = true;
-    // this._route.navigate(['home']);
+
+    this._login.login(this.loginForm.value).subscribe({
+      next: (res) => {
+        const token: string | any = res.body?.access_token;
+        const id: number | any = res.body?.id;
+
+        localStorage.setItem('acc', token);
+        localStorage.setItem('_i_.ind', id + '127_i');
+        this.enableButton = true;
+        this._route.navigate(['home']);
+      },
+
+      error: (err) => {
+        if (err.error.error == 'Unauthorized') {
+          this.errorRequest = true;
+          this.erroMessage = err.error.message;
+        }
+        this.enableButton = false;
+      },
+    });
   }
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {
+  FormBuilder,
   FormControl,
   FormGroup,
   FormGroupDirective,
@@ -7,6 +8,10 @@ import {
   Validators,
 } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
+import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
+import { SuccessactionComponent } from 'src/app/components/successAction/successaction.component';
+import { LoginService } from 'src/app/services/login.service';
 
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -34,7 +39,7 @@ export class CreateAccountComponent implements OnInit {
     Validators.email,
   ]);
 
-  public createAccForm = new FormGroup({
+  public createAccForm: FormGroup = this._formBuild.group({
     primary_name: new FormControl('', [Validators.required]),
     second_name: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required, Validators.email]),
@@ -42,20 +47,63 @@ export class CreateAccountComponent implements OnInit {
   });
 
   public matcher = new MyErrorStateMatcher();
-
   public hide = true;
+  public erroMessage = '';
+  public errorRequest = true;
+  public enableButton = false;
 
-  constructor() {}
+  constructor(
+    private _login: LoginService,
+    private _route: Router,
+    private _formBuild: FormBuilder,
+    private _dialog: MatDialog
+  ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.createAccForm;
+  }
 
   public preventDefPass(event: Event): boolean {
     event.preventDefault();
     return (this.hide = !this.hide);
   }
 
-  create(event: Event) {
+  public create(event: Event): void {
     event.preventDefault();
-    console.log(this.createAccForm.value);
+
+    if (this.createAccForm.value === '') {
+      return;
+    }
+
+    this.enableButton = true;
+
+    this._login.createUser(this.createAccForm.value).subscribe({
+      next: (res) => {
+        this.openDialog();
+        this.enableButton = false;
+
+        setTimeout(() => {
+          this._dialog.closeAll();
+        }, 3200);
+
+        setTimeout(() => {
+          this._route.navigate(['']);
+        }, 3700);
+      },
+      error: (err) => {
+        this.enableButton = false;
+
+        if (err.error.statusCode === 400) {
+          this.erroMessage =
+            'Senha Fraca, utileza simbolos, números, letras maiúsculas e minúsculas.';
+        }
+      },
+    });
+  }
+
+  private openDialog(): void {
+    this._dialog.open(SuccessactionComponent, {
+      width: '20%',
+    });
   }
 }
