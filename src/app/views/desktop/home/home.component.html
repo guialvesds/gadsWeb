@@ -1,1 +1,22 @@
-<p>home works!</p>
+<main>
+  <mat-toolbar class="toobar">
+    <span>Gads</span>
+    <span class="example-spacer"></span>
+  </mat-toolbar>
+  <div class="container-content">
+  <mat-drawer-container class="example-container" autosize>
+    <mat-drawer #drawer class="example-sidenav" mode="side" opened>
+      <span>Auto-resizing sidenav</span>
+      <span *ngIf="showFiller">Lorem, ipsum dolor sit amet consectetur.</span>
+    </mat-drawer>
+    <!-- <div class="example-sidenav-content">
+      <button type="button" mat-button (click)="drawer.toggle()">
+        Toggle sidenav
+      </button>
+    </div> -->
+  </mat-drawer-container>
+  <h1>Teste</h1>
+</div>
+</main>
+
+

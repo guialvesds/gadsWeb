@@ -25,7 +25,6 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
     );
   }
 }
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -71,15 +70,13 @@ export class LoginComponent implements OnInit {
 
     this._login.login(this.loginForm.value).subscribe({
       next: (res) => {
-        const token: string | any = res.body?.access_token;
-        const id: number | any = res.body?.id;
+        const data: string | number | any = res.body;
 
-        localStorage.setItem('acc', token);
-        localStorage.setItem('_i_.ind', id + '127_i');
+        localStorage.setItem('acc', data.access_token);
+        localStorage.setItem('_i_.ind', data.id + '127_i');
         this.enableButton = true;
         this._route.navigate(['home']);
       },
-
       error: (err) => {
         if (err.error.error == 'Unauthorized') {
           this.errorRequest = true;

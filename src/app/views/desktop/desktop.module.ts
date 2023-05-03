@@ -4,15 +4,18 @@ import { CommonModule } from '@angular/common';
 import { DesktopRoutingModule } from './desktop-routing.module';
 import { HomeComponent } from './home/home.component';
 
-
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 @NgModule({
-  declarations: [
-    HomeComponent
-  ],
+  declarations: [HomeComponent],
   imports: [
     CommonModule,
-    DesktopRoutingModule
-  ]
+    DesktopRoutingModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatSidenavModule,
+  ],
 })
-export class DesktopModule { }
+export class DesktopModule {}
