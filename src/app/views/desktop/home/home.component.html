@@ -1,22 +1,22 @@
 <main>
   <mat-toolbar class="toobar">
-    <span>Gads</span>
-    <span class="example-spacer"></span>
+    <div class="example-logo">
+      <img src="../../../../assets/G.png" alt="">
+      <span>Gads</span>
+    </div>
+    <div class="container-links">
+      <span>Gads</span>
+    </div>
   </mat-toolbar>
   <div class="container-content">
-  <mat-drawer-container class="example-container" autosize>
-    <mat-drawer #drawer class="example-sidenav" mode="side" opened>
-      <span>Auto-resizing sidenav</span>
-      <span *ngIf="showFiller">Lorem, ipsum dolor sit amet consectetur.</span>
-    </mat-drawer>
-    <!-- <div class="example-sidenav-content">
-      <button type="button" mat-button (click)="drawer.toggle()">
-        Toggle sidenav
-      </button>
-    </div> -->
-  </mat-drawer-container>
-  <h1>Teste</h1>
-</div>
+    <div class="example-container">
+      <div class="example-sidenav" mode="side" opened>
+        <div class="top-sidenav">
+          <h1>AT</h1>
+          <hr class="hr">
+        </div>
+      </div>
+    </div>
+    <router-outlet></router-outlet>
+  </div>
 </main>
-
-

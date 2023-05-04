@@ -26,12 +26,24 @@ main {
       justify-content: space-around;
       align-items: center;
 
-      h1 {
-        font-size: 3em;
-        font-weight: bold;
-        // margin-bottom: 2rem;
-        color: #F98E77;
-        letter-spacing: 2px;
+      .top-login {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: -1rem;
+
+        h1 {
+          font-size: 3em;
+          font-weight: bold;
+          color: #F98E77;
+          letter-spacing: 2px;
+        }
+
+        span {
+          color: grey;
+          font-size: 0.9em;
+        }
+
       }
 
       h3 {
@@ -47,14 +59,14 @@ main {
         min-width: 45%;
         max-width: 80%;
         width: 80%;
-      }
 
-      .example-form > p{
-        font-weight: bold;
-        margin: auto 0;
-        color: red;
-        border-left: 2px solid red;
-        padding-left: 5px;
+        &>p {
+          font-weight: bold;
+          margin: auto 0;
+          color: red;
+          border-left: 2px solid red;
+          padding-left: 5px;
+        }
       }
 
       .example-full-width {

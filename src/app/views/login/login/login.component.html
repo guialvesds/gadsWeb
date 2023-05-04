@@ -1,7 +1,10 @@
 <main>
   <section class="card">
     <div class="container-forms">
-      <h1>Login</h1>
+      <div class="top-login">
+        <h1>Login</h1>
+        <span>Utilize o seu e-mail e senha.</span>
+      </div>
       <form class="example-form" (submit)="login($event)" [formGroup]="loginForm">
         <!-- Email -->
         <p *ngIf="errorRequest">{{erroMessage}}</p>
