@@ -73,7 +73,7 @@ export class LoginComponent implements OnInit {
         const data: string | number | any = res.body;
 
         localStorage.setItem('acc', data.access_token);
-        localStorage.setItem('_i_.ind', data.id + '127_i');
+        localStorage.setItem('_i_.ind0', data.id);
         this.enableButton = true;
         this._route.navigate(['home']);
       },

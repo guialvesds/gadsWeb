@@ -14,9 +14,25 @@
         <div class="top-sidenav">
           <h1>AT</h1>
           <hr class="hr">
+          <div class="desktop-item">
+            <div class="top">
+              <cdk-virtual-scroll-viewport autosize appendOnly itemSize="5" class="scroll">
+              <button class="desktop-item-button" *cdkVirtualFor="let desktop of desktopData">
+                <span>{{ desktop.name.charAt(0).toUpperCase() + desktop.name.substring(1, 7)}}</span>
+              </button>
+            </cdk-virtual-scroll-viewport>
+            </div>
+            <div class="bottom">
+              <button class="desktop-item-plus">
+                <mat-icon fontIcon="add"></mat-icon>
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-    <router-outlet></router-outlet>
+    <div class="container-content-router">
+      <router-outlet></router-outlet>
+    </div>
   </div>
 </main>
