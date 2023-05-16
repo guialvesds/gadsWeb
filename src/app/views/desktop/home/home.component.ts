@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { map } from 'rxjs';
+import { DesktopFormComponent } from 'src/app/components/desktop-form/desktop-form.component';
 import { Desktop } from 'src/app/models/Desktop.model';
 import { DesktopService } from 'src/app/services/desktop.service';
 
@@ -11,10 +13,15 @@ import { DesktopService } from 'src/app/services/desktop.service';
 export class HomeComponent implements OnInit {
   public desktopData: Desktop[] | any = [];
 
-  constructor(private _desktopService: DesktopService) {}
+  constructor(private _desktopService: DesktopService, private _dialogRef: MatDialog) {}
 
   ngOnInit(): void {
     this.findDesktop();
+  }
+
+  public openDialog(): void {
+    const dialogRef = this._dialogRef.open(DesktopFormComponent);
+    dialogRef.afterClosed();
   }
 
   public findDesktop(): void {

@@ -24,4 +24,12 @@ export class DesktopService {
       observe: 'response',
     });
   }
+
+  public createDesktop(data: FormData): Observable<HttpResponse<Desktop>> {
+    const url: string = `${this.url}/desktop`;
+    return this.http.post<Desktop>(url, data, {
+      headers: this.head_obj,
+      observe: 'response',
+    });
+  }
 }

@@ -102,7 +102,9 @@ main {
                 cursor: pointer;
 
                 &:hover {
-                  border: 2px solid #F98E77;
+                  border: 3px solid #F98E77;
+                  border-radius: 25px;
+                  color: #F98E77;
                 }
 
                 span {
@@ -113,30 +115,29 @@ main {
 
             .bottom {
 
-              .desktop-item-button,
-              .desktop-item-plus {
+             .desktop-item-plus {
                 width: 4.2rem;
                 height: 4.2rem;
                 display: flex;
                 justify-content: center;
                 align-items: center;
                 background-color: #F4F4F4;
-                border: 2px solid #F98E77;
+                border: 3px solid #F98E77;
                 border-radius: 50%;
                 margin-bottom: 0.5rem;
                 cursor: pointer;
-
-                span {
-                  font-weight: 500;
-                }
 
                 mat-icon {
                   display: flex;
                   justify-content: center;
                   align-items: center;
-                  font-size: 40px;
+                  font-size: 70px;
                   font-weight: 400;
                   color: #F98E77;
+                }
+
+                &:hover {
+                  border-radius: 25px;
                 }
               }
             }

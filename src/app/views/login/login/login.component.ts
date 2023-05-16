@@ -68,21 +68,22 @@ export class LoginComponent implements OnInit {
       return;
     }
 
+    this.enableButton = true;
+
     this._login.login(this.loginForm.value).subscribe({
       next: (res) => {
         const data: string | number | any = res.body;
 
         localStorage.setItem('acc', data.access_token);
         localStorage.setItem('_i_.ind0', data.id);
-        this.enableButton = true;
         this._route.navigate(['home']);
       },
       error: (err) => {
         if (err.error.error == 'Unauthorized') {
           this.errorRequest = true;
           this.erroMessage = err.error.message;
+          this.enableButton = false;
         }
-        this.enableButton = false;
       },
     });
   }

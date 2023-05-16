@@ -7,7 +7,8 @@ import { HomeComponent } from './home/home.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import {ScrollingModule} from '@angular/cdk/scrolling'
+import { ScrollingModule } from '@angular/cdk/scrolling';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [HomeComponent],
@@ -17,7 +18,8 @@ import {ScrollingModule} from '@angular/cdk/scrolling'
     MatToolbarModule,
     MatIconModule,
     MatSidenavModule,
-    ScrollingModule
+    ScrollingModule,
+    MatDialogModule,
   ],
 })
 export class DesktopModule {}

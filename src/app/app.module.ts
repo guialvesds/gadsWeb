@@ -9,6 +9,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { SuccessactionComponent } from './components/successAction/successaction.component';
 
 import {MatDialogModule} from '@angular/material/dialog';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import { DesktopFormComponent } from './components/desktop-form/desktop-form.component';
+import { MatIconModule } from '@angular/material/icon';
+import {MatInputModule} from '@angular/material/input';
+import { FormsModule } from '@angular/forms';
+
 
 
 
@@ -16,6 +22,7 @@ import {MatDialogModule} from '@angular/material/dialog';
   declarations: [
     AppComponent,
     SuccessactionComponent,
+    DesktopFormComponent,
 
   ],
   imports: [
@@ -25,6 +32,10 @@ import {MatDialogModule} from '@angular/material/dialog';
     ReactiveFormsModule,
     HttpClientModule,
     MatDialogModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
