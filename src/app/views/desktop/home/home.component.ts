@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { map } from 'rxjs';
-import { DesktopFormComponent } from 'src/app/components/desktop-form/desktop-form.component';
+import { DesktopFormComponent } from 'src/app/views/desktop/components-desktop/desktop-form/desktop-form.component';
 import { Desktop } from 'src/app/models/Desktop.model';
 import { DesktopService } from 'src/app/services/desktop.service';
 

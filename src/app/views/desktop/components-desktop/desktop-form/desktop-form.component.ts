@@ -5,10 +5,15 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import {
+  MAT_DIALOG_DATA,
+  MatDialog,
+  MatDialogRef,
+} from '@angular/material/dialog';
 import { Desktop } from 'src/app/models/Desktop.model';
 import { DesktopService } from 'src/app/services/desktop.service';
 import { HomeComponent } from 'src/app/views/desktop/home/home.component';
+import { SuccessactionComponent } from '../../../../components/successAction/successaction.component';
 
 @Component({
   selector: 'app-desktop-form',
@@ -26,6 +31,7 @@ export class DesktopFormComponent implements OnInit {
     public dialogRef: MatDialogRef<HomeComponent>,
     private _desktopService: DesktopService,
     private _formBuild: FormBuilder,
+    private _dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: Desktop
   ) {}
 
@@ -33,13 +39,42 @@ export class DesktopFormComponent implements OnInit {
     this.desktopForm;
   }
 
+  // Criar um novo desktop
   public CreateDesktop() {
     console.log(this.desktopForm.value);
-    this._desktopService.createDesktop(this.desktopForm.value).subscribe();
+
+    this._desktopService.createDesktop(this.desktopForm.value).subscribe({
+      next: (res) => {
+        console.log(res);
+
+        this.openSuccessDialog();
+        this.closeDialog();
+        setTimeout(() => {
+          this._dialog.closeAll();
+        }, 2000);
+      },
+      error: (err) => {
+        this.openErrorDialog();
+      },
+    });
   }
 
+  // Fecha os modal
   public closeDialog(): void {
     this.dialogRef.close();
   }
 
+  // Abre modal de sucesso
+  private openSuccessDialog(): void {
+    this._dialog.open(SuccessactionComponent, {
+      width: '30%',
+    });
+  }
+
+  // Abre modal de erro
+  private openErrorDialog(): void {
+    this._dialog.open(SuccessactionComponent, {
+      width: '30%',
+    });
+  }
 }

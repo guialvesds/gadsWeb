@@ -19,7 +19,8 @@ export class DesktopService {
   constructor(private http: HttpClient) {}
 
   public findDesktops(): Observable<HttpResponse<Desktop>> {
-    return this.http.get<Desktop>(`${this.url}/desktop`, {
+    const url: string = `${this.url}/desktop`;
+    return this.http.get<Desktop>(url, {
       headers: this.head_obj,
       observe: 'response',
     });

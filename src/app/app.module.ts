@@ -10,10 +10,11 @@ import { SuccessactionComponent } from './components/successAction/successaction
 
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatFormFieldModule} from '@angular/material/form-field';
-import { DesktopFormComponent } from './components/desktop-form/desktop-form.component';
+import { DesktopFormComponent } from './views/desktop/components-desktop/desktop-form/desktop-form.component';
 import { MatIconModule } from '@angular/material/icon';
 import {MatInputModule} from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
+import { ErrorComponent } from './components/error/error.component';
 
 
 
@@ -23,6 +24,7 @@ import { FormsModule } from '@angular/forms';
     AppComponent,
     SuccessactionComponent,
     DesktopFormComponent,
+    ErrorComponent,
 
   ],
   imports: [
