@@ -1,52 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, AfterViewInit, ViewChild, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import { Desktop } from 'src/app/models/Desktop.model';
+import { DesktopService } from 'src/app/services/desktop.service';
+
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-
-
-export interface UserData {
-  id: string;
-  name: string;
-  progress: string;
-  fruit: string;
-}
-
-/** Constants used to fill up our data base. */
-const FRUITS: string[] = [
-  'blueberry',
-  'lychee',
-  'kiwi',
-  'mango',
-  'peach',
-  'lime',
-  'pomegranate',
-  'pineapple',
-];
-const NAMES: string[] = [
-  'Maia',
-  'Asher',
-  'Olivia',
-  'Atticus',
-  'Amelia',
-  'Jack',
-  'Charlotte',
-  'Theodore',
-  'Isla',
-  'Oliver',
-  'Isabella',
-  'Jasper',
-  'Cora',
-  'Levi',
-  'Violet',
-  'Arthur',
-  'Mia',
-  'Thomas',
-  'Elizabeth',
-];
 
 @Component({
   selector: 'app-table-view',
@@ -54,18 +19,38 @@ const NAMES: string[] = [
   styleUrls: ['./table-view.component.scss'],
 })
 export class TableViewComponent implements OnInit {
-  value = '';
-  displayedColumns: string[] = ['id', 'name', 'progress', 'fruit'];
-  dataSource: MatTableDataSource<UserData> | any;
-
   public tableViewForm: FormGroup = this._formBuild.group({
     search: new FormControl('', [Validators.required]),
   });
+  public value = '';
+  public displayedColumns: string[] = [
+    'id',
+    'title',
+    'delivary_date',
+    'created_at',
+    'acoes',
+  ];
+  public dataSource!: MatTableDataSource<Desktop['card']> | any;
 
-  constructor(private _formBuild: FormBuilder) {}
+  public desktopData: Desktop[] | any = [];
+
+  @ViewChild(MatPaginator) private paginator!: MatPaginator;
+  @ViewChild(MatSort) private sort!: MatSort;
+
+  constructor(
+    private _formBuild: FormBuilder,
+    private _route: ActivatedRoute,
+    private _desktopService: DesktopService
+  ) {}
 
   ngOnInit(): void {
     this.tableViewForm;
+    this.getDesktop();
+  }
+
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 
   applyFilter(event: Event) {
@@ -75,5 +60,29 @@ export class TableViewComponent implements OnInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  public verifyDelivery(row: any): string {
+    return row.delivery_date ? row.delivery_date : '';
+  }
+
+  private getDesktop(): void {
+    this._desktopService.findOneDesktop(this.getIdDesktop()).subscribe({
+      next: (res) => {
+        this.desktopData = res.body;
+        // Atribui os dados à fonte de dados para a tabela renderizar
+        this.dataSource = new MatTableDataSource(res.body!.card);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
+  }
+
+  private getIdDesktop(): number {
+    const id = this._route.snapshot.paramMap.get('id');
+    return Number(id);
   }
 }

@@ -14,8 +14,8 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
 import { MatDialogModule } from '@angular/material/dialog';
 import { TableViewComponent } from './table-view/table-view.component';
 import { FormsModule } from '@angular/forms';
-import {MatTableModule} from '@angular/material/table';
-import {MatPaginator} from '@angular/material/paginator';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
   declarations: [HomeComponent, TableViewComponent],
@@ -31,6 +31,7 @@ import {MatPaginator} from '@angular/material/paginator';
     FormsModule,
     MatInputModule,
     MatTableModule,
+    MatPaginatorModule,
   ],
 })
 export class DesktopModule {}

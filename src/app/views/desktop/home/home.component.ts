@@ -13,7 +13,10 @@ import { DesktopService } from 'src/app/services/desktop.service';
 export class HomeComponent implements OnInit {
   public desktopData: Desktop[] | any = [];
 
-  constructor(private _desktopService: DesktopService, private _dialogRef: MatDialog) {}
+  constructor(
+    private _desktopService: DesktopService,
+    private _dialogRef: MatDialog
+  ) {}
 
   ngOnInit(): void {
     this.findDesktop();
@@ -26,7 +29,9 @@ export class HomeComponent implements OnInit {
 
   public findDesktop(): void {
     this._desktopService
-      .findDesktops().pipe( map((desktop) => ({
+      .findDesktops()
+      .pipe(
+        map((desktop) => ({
           ...desktop,
           data: desktop.body,
         }))
@@ -36,9 +41,9 @@ export class HomeComponent implements OnInit {
           this.desktopData = data;
           console.log(this.desktopData);
         },
-        error: (err => {
+        error: (err) => {
           throw new Error(err);
-        })
+        },
       });
   }
 }

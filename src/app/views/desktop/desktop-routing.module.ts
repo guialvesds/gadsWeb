@@ -8,7 +8,7 @@ const routesDesktop: Routes = [
     path: '',
     component: HomeComponent,
     children: [
-      { path: 'home/desktopTableView/:id', component: TableViewComponent },
+      { path: 'desktopTableView/:id', component: TableViewComponent },
     ],
   },
 ];

@@ -18,7 +18,7 @@
             <div class="top">
               <cdk-virtual-scroll-viewport autosize appendOnly itemSize="5" class="scroll">
                 <button class="desktop-item-button" *cdkVirtualFor="let desktop of desktopData"
-                  routerLink="home/desktopTableView/{{desktop.id}}"
+                  routerLink="desktopTableView/{{desktop.id}}"
                   routerLinkActive="selected">
                   <span>{{ desktop.name.charAt(0).toUpperCase() + desktop.name.substring(1, 7)}}</span>
                 </button>

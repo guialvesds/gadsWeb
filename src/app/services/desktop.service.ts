@@ -18,6 +18,14 @@ export class DesktopService {
 
   constructor(private http: HttpClient) {}
 
+  public findOneDesktop(id: number): Observable<HttpResponse<Desktop>> {
+    const url: string = `${this.url}/desktop/${id}`;
+    return this.http.get<Desktop>(url, {
+      headers: this.head_obj,
+      observe: 'response',
+    });
+  }
+
   public findDesktops(): Observable<HttpResponse<Desktop>> {
     const url: string = `${this.url}/desktop`;
     return this.http.get<Desktop>(url, {
