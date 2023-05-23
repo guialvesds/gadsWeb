@@ -1,0 +1,13 @@
+<section>
+  <img src="../../../assets/alert.gif" alt="">
+  <h1>Tem certeza?</h1>
+  <p>A exclusão é permanente e não poderá ser desfeita.</p>
+  <div class="button-action">
+    <button mat-button matDialogClose="">
+      Cancelar
+    </button>
+    <button mat-button cdkFocusInitial (click)="deleteCard()">
+      Sim, excluir!
+    </button>
+  </div>
+</section>

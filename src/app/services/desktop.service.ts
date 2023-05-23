@@ -8,7 +8,7 @@ import { Desktop } from '../models/Desktop.model';
   providedIn: 'root',
 })
 export class DesktopService {
-  private url = environment.baseApiUrl;
+  private urlApi = environment.baseApiUrl;
 
   private token = window.localStorage.getItem('acc');
   private head_obj = new HttpHeaders().set(
@@ -16,29 +16,34 @@ export class DesktopService {
     'Bearer ' + this.token
   );
 
+  private url: string = `${this.urlApi}/desktop`;
+
   constructor(private http: HttpClient) {}
 
   public findOneDesktop(id: number): Observable<HttpResponse<Desktop>> {
-    const url: string = `${this.url}/desktop/${id}`;
-    return this.http.get<Desktop>(url, {
+    return this.http.get<Desktop>(`${this.url}/${id}`, {
       headers: this.head_obj,
       observe: 'response',
     });
   }
 
   public findDesktops(): Observable<HttpResponse<Desktop>> {
-    const url: string = `${this.url}/desktop`;
-    return this.http.get<Desktop>(url, {
+    return this.http.get<Desktop>(`${this.url}`, {
       headers: this.head_obj,
       observe: 'response',
     });
   }
 
   public createDesktop(data: FormData): Observable<HttpResponse<Desktop>> {
-    const url: string = `${this.url}/desktop`;
-    return this.http.post<Desktop>(url, data, {
+    return this.http.post<Desktop>(`${this.url}`, data, {
       headers: this.head_obj,
       observe: 'response',
+    });
+  }
+
+  public deleteDesktop(id: number): void {
+    this.http.delete(`${this.url}/${id}`, {
+      headers: this.head_obj,
     });
   }
 }

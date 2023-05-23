@@ -15,6 +15,7 @@ import { MatIconModule } from '@angular/material/icon';
 import {MatInputModule} from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 import { ErrorComponent } from './components/error/error.component';
+import { RemoveAcceptComponent } from './components/removeAccept/removeaccept.component';
 
 
 
@@ -25,6 +26,7 @@ import { ErrorComponent } from './components/error/error.component';
     SuccessactionComponent,
     DesktopFormComponent,
     ErrorComponent,
+    RemoveAcceptComponent,
 
   ],
   imports: [

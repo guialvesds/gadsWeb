@@ -12,6 +12,9 @@ import { DesktopService } from 'src/app/services/desktop.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { CardService } from 'src/app/services/card.service';
+import { MatDialog } from '@angular/material/dialog';
+import { RemoveAcceptComponent } from 'src/app/components/removeAccept/removeaccept.component';
 
 @Component({
   selector: 'app-table-view',
@@ -40,7 +43,9 @@ export class TableViewComponent implements OnInit {
   constructor(
     private _formBuild: FormBuilder,
     private _route: ActivatedRoute,
-    private _desktopService: DesktopService
+    private _desktopService: DesktopService,
+    private _cardService: CardService,
+    private _dialogRef: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -48,12 +53,14 @@ export class TableViewComponent implements OnInit {
     this.getDesktop();
   }
 
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+  public openDialog(id: number): void {
+    const dialogRef = this._dialogRef.open(RemoveAcceptComponent, {
+      data: id
+    });
+    dialogRef.afterClosed();
   }
 
-  applyFilter(event: Event) {
+  public applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
 
@@ -64,6 +71,10 @@ export class TableViewComponent implements OnInit {
 
   public verifyDelivery(row: any): string {
     return row.delivery_date ? row.delivery_date : '';
+  }
+
+  public modifyDate(row: string): string {
+    return row.toLocaleString().substring(0, 10).split('-').reverse().join('/');
   }
 
   private getDesktop(): void {

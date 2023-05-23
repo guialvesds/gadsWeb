@@ -116,6 +116,42 @@ section {
       font-size: 0.9em;
       font-weight: 500;
     }
+
+    .button-td-container {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+
+      button {
+        width: 1.9rem;
+        height: 1.8rem;
+        padding: 0%;
+        border: 2px solid rgb(161, 161, 161);
+        background-color: transparent;
+        color: rgb(211, 139, 134);
+        cursor: pointer;
+
+        &:hover {
+          border: 2px solid #F98E77;
+          border-radius: 3px;
+          color: rgb(182, 122, 118);
+        }
+
+        &:last-child {
+          margin-left: 5px;
+          color: rgb(100, 133, 182);
+
+          &:hover {
+            border: 2px solid #F98E77;
+            border-radius: 3px;
+            color: rgb(80, 106, 146);
+          }
+        }
+      }
+    }
+
   }
+
 
 }
