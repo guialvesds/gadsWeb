@@ -45,7 +45,6 @@ export class TableViewComponent implements OnInit {
     private _formBuild: FormBuilder,
     private _route: ActivatedRoute,
     private _desktopService: DesktopService,
-    private _cardService: CardService,
     private _dialogRef: MatDialog
   ) {}
 
@@ -56,17 +55,17 @@ export class TableViewComponent implements OnInit {
 
   public openDialog(id: number): void {
     const dialogRef = this._dialogRef.open(RemoveAcceptComponent, {
-      data: id
+      data: id,
     });
-    dialogRef.afterClosed();
+    this.refrashCloseDialog(dialogRef);
   }
 
   public newCard(): void {
     const id: number = this.desktopData.id;
     const dialogRef = this._dialogRef.open(CardFormComponent, {
-      data: id
+      data: id,
     });
-    dialogRef.afterClosed();
+    this.refrashCloseDialog(dialogRef);
   }
 
   public applyFilter(event: Event) {
@@ -104,5 +103,11 @@ export class TableViewComponent implements OnInit {
   private getIdDesktop(): number {
     const id = this._route.snapshot.paramMap.get('id');
     return Number(id);
+  }
+
+  private refrashCloseDialog(dialogRef: any): void {
+    dialogRef.afterClosed().subscribe((res: any) => {
+      this.getDesktop();
+    });
   }
 }

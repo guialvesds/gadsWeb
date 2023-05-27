@@ -13,8 +13,6 @@ import {
 import { SuccessactionComponent } from 'src/app/components/successAction/successaction.component';
 import { CardService } from 'src/app/services/card.service';
 import { HomeComponent } from '../../home/home.component';
-import { Router } from '@angular/router';
-import { TableViewComponent } from '../../table-view/table-view.component';
 import { ErrorComponent } from 'src/app/components/error/error.component';
 
 @Component({
@@ -32,7 +30,6 @@ export class CardFormComponent implements OnInit {
   constructor(
     private _formBuild: FormBuilder,
     private _dialog: MatDialog,
-    private _route: Router,
     public _dialogRef: MatDialogRef<HomeComponent>,
     private _cardService: CardService,
     @Inject(MAT_DIALOG_DATA) public data: number
@@ -43,8 +40,6 @@ export class CardFormComponent implements OnInit {
   public createCard(): void {
     this._cardService.createCard(this.cardForm.value, this.data).subscribe({
       next: (res) => {
-        console.log('retorno res', res, res.status);
-
         if (res.status === 201) {
           this.openSuccessDialog();
           this.closeDialog();
@@ -71,7 +66,7 @@ export class CardFormComponent implements OnInit {
   // Abre modal de sucesso
   private openSuccessDialog(): void {
     this._dialog.open(SuccessactionComponent, {
-      width: '30%',
+      width: '25%',
     });
   }
 

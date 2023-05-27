@@ -3,6 +3,7 @@ import { Card } from 'src/app/models/Card.model';
 import { CardService } from 'src/app/services/card.service';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { SuccessactionComponent } from '../successAction/successaction.component';
+import { ErrorComponent } from '../error/error.component';
 
 @Component({
   selector: 'app-removeaccept',
@@ -19,49 +20,30 @@ export class RemoveAcceptComponent implements OnInit {
     private _dialog: MatDialog
   ) {}
 
-  ngOnInit(): void {
-    this.getCard();
-  }
+  ngOnInit(): void {}
 
   public deleteCard(): void {
-    this._cardService.deleteCard(this.CardData.id).subscribe({
+    this._cardService.deleteCard(this.data).subscribe({
       next: (res) => {
-        this.dialogAction();
+        this._dialog.closeAll();
       },
       error: (err) => {
-        console.log(err);
+        if (err) {
+          this._dialog.closeAll();
+          this.openErrorDialog();
+
+          setTimeout(() => {
+            this._dialog.closeAll();
+          }, 3000);
+        }
       },
     });
   }
 
-  private closeDialog(): void {
-    this._dialog.closeAll();
-  }
-
-  private openSuccessDialog(): void {
-    this._dialog.open(SuccessactionComponent, {
-      width: '20%',
+  // Abre modal de erro
+  private openErrorDialog(): void {
+    this._dialog.open(ErrorComponent, {
+      width: '25%',
     });
-  }
-
-  private getCard(): void {
-    this._cardService.finOnCard(this.data).subscribe({
-      next: (res) => {
-        this.CardData = res.body;
-      },
-      error: (err) => {
-        console.log(err);
-      },
-    });
-  }
-
-  private dialogAction(): void {
-    this.closeDialog();
-
-    this.openSuccessDialog();
-
-    setTimeout(() => {
-      this.closeDialog();
-    }, 3400);
   }
 }

@@ -26,7 +26,9 @@ export class HomeComponent implements OnInit {
 
    public openDialog(): void {
     const dialogRef = this._dialogRef.open(DesktopFormComponent);
-    dialogRef.afterClosed();
+    dialogRef.afterClosed().subscribe( (res : any) => {
+      this.findDesktop();
+    });
   }
 
   public findDesktop(): void {
@@ -41,10 +43,7 @@ export class HomeComponent implements OnInit {
       .subscribe({
         next: ({ data }) => {
           this.desktopData = data;
-
           this.desktopData.length === 0 ? this.openDialog() : '';
-
-          console.log(this.desktopData);
         },
         error: (err) => {
           throw new Error(err);
