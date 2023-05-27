@@ -1,0 +1,30 @@
+<section>
+  <h1>Cadastar novo cartão.</h1>
+  <p *ngIf="validation">Todos os Campos são obrigatórios.</p>
+  <form action="" [formGroup]="cardForm">
+    <div class="container-input">
+    <mat-form-field class="input-title">
+      <mat-label>Título</mat-label>
+      <input matInput maxlength="45" formControlName="title" required>
+    </mat-form-field>
+    <!-- DatePicker -->
+    <mat-form-field color="accent" class="input-date">
+      <label for="deliveryDate">Data de Entrega*</label>
+      <!-- <input type="date" name="deliveryDate" id="deliveryDate" formControlName="deliveryDate" /> -->
+
+      <!-- <mat-label>Data de Entrega</mat-label> -->
+      <input class="datePicker" readonly="true" matInput [matDatepicker]="picker" formControlName="delivery_date" required>
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker color="warn"></mat-datepicker>
+    </mat-form-field>
+  </div>
+  </form>
+  <div class="button-action">
+    <button mat-button matDialogClose="">
+      Cancelar
+    </button>
+    <button mat-button cdkFocusInitial (click)="createCard()">
+      Cadastrar
+    </button>
+  </div>
+</section>

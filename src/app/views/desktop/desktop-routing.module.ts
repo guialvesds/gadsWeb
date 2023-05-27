@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { TableViewComponent } from './table-view/table-view.component';
 
-const routesDesktop: Routes = [
+const routes: Routes = [
   {
     path: '',
     component: HomeComponent,
@@ -14,7 +14,7 @@ const routesDesktop: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routesDesktop)],
+  imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
 export class DesktopRoutingModule {}

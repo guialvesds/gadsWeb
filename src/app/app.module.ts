@@ -18,8 +18,6 @@ import { ErrorComponent } from './components/error/error.component';
 import { RemoveAcceptComponent } from './components/removeAccept/removeaccept.component';
 
 
-
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,7 +25,6 @@ import { RemoveAcceptComponent } from './components/removeAccept/removeaccept.co
     DesktopFormComponent,
     ErrorComponent,
     RemoveAcceptComponent,
-
   ],
   imports: [
     BrowserModule,
@@ -39,7 +36,7 @@ import { RemoveAcceptComponent } from './components/removeAccept/removeaccept.co
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
-    FormsModule
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, ViewChild, OnInit } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -15,6 +15,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { CardService } from 'src/app/services/card.service';
 import { MatDialog } from '@angular/material/dialog';
 import { RemoveAcceptComponent } from 'src/app/components/removeAccept/removeaccept.component';
+import { CardFormComponent } from '../components-desktop/card-form/card-form.component';
 
 @Component({
   selector: 'app-table-view',
@@ -55,6 +56,14 @@ export class TableViewComponent implements OnInit {
 
   public openDialog(id: number): void {
     const dialogRef = this._dialogRef.open(RemoveAcceptComponent, {
+      data: id
+    });
+    dialogRef.afterClosed();
+  }
+
+  public newCard(): void {
+    const id: number = this.desktopData.id;
+    const dialogRef = this._dialogRef.open(CardFormComponent, {
       data: id
     });
     dialogRef.afterClosed();

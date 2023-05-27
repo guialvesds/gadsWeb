@@ -4,6 +4,7 @@ import { map } from 'rxjs';
 import { DesktopFormComponent } from 'src/app/views/desktop/components-desktop/desktop-form/desktop-form.component';
 import { Desktop } from 'src/app/models/Desktop.model';
 import { DesktopService } from 'src/app/services/desktop.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -15,14 +16,15 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private _desktopService: DesktopService,
-    private _dialogRef: MatDialog
+    private _dialogRef: MatDialog,
+    private _route: Router,
   ) {}
 
   ngOnInit(): void {
     this.findDesktop();
   }
 
-  public openDialog(): void {
+   public openDialog(): void {
     const dialogRef = this._dialogRef.open(DesktopFormComponent);
     dialogRef.afterClosed();
   }
@@ -39,6 +41,9 @@ export class HomeComponent implements OnInit {
       .subscribe({
         next: ({ data }) => {
           this.desktopData = data;
+
+          this.desktopData.length === 0 ? this.openDialog() : '';
+
           console.log(this.desktopData);
         },
         error: (err) => {

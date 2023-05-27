@@ -27,6 +27,13 @@ export class CardService {
     });
   }
 
+  public createCard(data: FormData, idDesktop: number): Observable<HttpResponse<Card>> {
+    return this.http.post<Card>(`${this.url}/${idDesktop}`, data, {
+      headers: this.head_obj,
+      observe: 'response',
+    });
+  }
+
   public deleteCard(id: number) {
   return this.http.delete(`${this.url}/${id}`, {
       headers: this.head_obj,
