@@ -123,6 +123,16 @@ section {
       font-weight: 500;
     }
 
+    .td-deliveryData {
+      p {
+        width: 35%;
+        padding-left: 5px;
+        padding-right: 5px;
+        border-radius: 3px;
+        color: white;
+      }
+    }
+
     .button-td-container {
       width: 100%;
       display: flex;

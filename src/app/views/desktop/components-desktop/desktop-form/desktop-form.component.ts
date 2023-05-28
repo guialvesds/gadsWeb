@@ -14,6 +14,7 @@ import { Desktop } from 'src/app/models/Desktop.model';
 import { DesktopService } from 'src/app/services/desktop.service';
 import { HomeComponent } from 'src/app/views/desktop/home/home.component';
 import { SuccessactionComponent } from '../../../../components/successAction/successaction.component';
+import { ErrorComponent } from 'src/app/components/error/error.component';
 
 @Component({
   selector: 'app-desktop-form',
@@ -22,6 +23,9 @@ import { SuccessactionComponent } from '../../../../components/successAction/suc
 })
 export class DesktopFormComponent implements OnInit {
   public value = '';
+  public dektopFormControl = new FormControl('', [
+    Validators.required,
+  ]);
 
   public desktopForm: FormGroup = this._formBuild.group({
     name: new FormControl('', [Validators.required]),
@@ -43,10 +47,12 @@ export class DesktopFormComponent implements OnInit {
   public CreateDesktop() {
     console.log(this.desktopForm.value);
 
+    if(this.desktopForm.value.name === '' || this.desktopForm.value.name === null) {
+      return;
+    }
+
     this._desktopService.createDesktop(this.desktopForm.value).subscribe({
       next: (res) => {
-        console.log(res);
-
         this.openSuccessDialog();
         this.closeDialog();
         setTimeout(() => {
@@ -73,7 +79,7 @@ export class DesktopFormComponent implements OnInit {
 
   // Abre modal de erro
   private openErrorDialog(): void {
-    this._dialog.open(SuccessactionComponent, {
+    this._dialog.open(ErrorComponent, {
       width: '30%',
     });
   }

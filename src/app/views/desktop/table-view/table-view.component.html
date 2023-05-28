@@ -41,7 +41,9 @@
           <!-- Delivery Column -->
           <ng-container matColumnDef="delivary_date">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Data de Entrega </th>
-            <td mat-cell *matCellDef="let row"> {{modifyDate(verifyDelivery(row))}} </td>
+            <td mat-cell *matCellDef="let row" class="td-deliveryData">
+              <p [ngStyle]="{'background-color': refDateColor(row)}">{{modifyDate(verifyDelivery(row))}}</p>
+            </td>
           </ng-container>
 
           <!-- Delivery Column -->
@@ -49,14 +51,14 @@
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Ações</th>
             <td mat-cell *matCellDef="let row">
               <div class="button-td-container">
-                 <!-- Remove Button -->
-              <button mat-flat-button (click)="openDialog(row.id)">
-                <mat-icon>delete_forever</mat-icon>
-              </button>
-              <!-- View Button -->
-              <button mat-flat-button>
-                <mat-icon>description</mat-icon>
-              </button>
+                <!-- Remove Button -->
+                <button mat-flat-button (click)="openDialog(row.id)">
+                  <mat-icon>delete_forever</mat-icon>
+                </button>
+                <!-- View Button -->
+                <button mat-flat-button>
+                  <mat-icon>description</mat-icon>
+                </button>
               </div>
             </td>
           </ng-container>

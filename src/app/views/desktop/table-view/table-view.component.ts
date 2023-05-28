@@ -110,4 +110,47 @@ export class TableViewComponent implements OnInit {
       this.getDesktop();
     });
   }
+
+  public refDateColor(c: any) {
+    if (this.validRed(this.getDiffDate(c))) {
+      const color = '#e46666';
+      return color;
+    }
+    if (this.validOrange(this.getDiffDate(c))) {
+      const color = '#e9be6d';
+      return color;
+    }
+    if (this.validGray(this.getDiffDate(c))) {
+      const color = 'gray';
+      return color;
+    } else if (this.validGreen(this.getDiffDate(c))) {
+      const color = '#7dc58d';
+      return color;
+    }
+    return c;
+  }
+
+  private validRed(diffDays: number): boolean {
+    return diffDays <= 2 && diffDays >= 0;
+  }
+  private validOrange(diffDays: number): boolean {
+    return diffDays >= 3 && diffDays <= 5;
+  }
+  private validGreen(diffDays: number): boolean {
+    return diffDays >= 6;
+  }
+  private validGray(diffDays: number): boolean {
+    return diffDays < 0;
+  }
+
+  private getDiffDate(c: any): number {
+    const endDate: any = new Date(c.delivery_date);
+    const iniDate: any = new Date();
+
+    const diffTime = endDate - iniDate;
+    const timeDay = 1000 * 60 * 60 * 24; // milesegundos * segundos * horas dia
+    const diffDays = Math.ceil(diffTime / timeDay);
+
+    return diffDays;
+  }
 }
