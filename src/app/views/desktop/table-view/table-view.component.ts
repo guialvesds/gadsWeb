@@ -89,6 +89,7 @@ export class TableViewComponent implements OnInit {
     this._desktopService.findOneDesktop(this.getIdDesktop()).subscribe({
       next: (res) => {
         this.desktopData = res.body;
+
         // Atribui os dados à fonte de dados para a tabela renderizar
         this.dataSource = new MatTableDataSource(res.body!.card);
         this.dataSource.paginator = this.paginator;
@@ -129,6 +130,7 @@ export class TableViewComponent implements OnInit {
     }
     return c;
   }
+
 
   private validRed(diffDays: number): boolean {
     return diffDays <= 2 && diffDays >= 0;

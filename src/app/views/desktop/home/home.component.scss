@@ -30,10 +30,37 @@ main {
       }
     }
 
-    .container-links {
+    .container-user {
       display: flex;
       align-items: center;
       justify-content: center;
+
+     & > button {
+        background-color: none;
+        border: 3px solid #F98E77;
+        border-radius: 100%;
+        width: 3rem;
+        height: 3rem;
+        cursor: pointer;
+        background-image: url('../../../../assets/perfil-image.jpg');
+        background-size: contain;
+
+        &:hover {
+          border: 2px solid #F98E77;
+        }
+      }
+
+      .notification-container {
+        margin-right: 1rem;
+        padding: 0;
+        margin-bottom: -0.6rem;
+
+        button {
+          background-color: none;
+          border: none;
+          cursor: pointer;
+        }
+      }
     }
   }
 

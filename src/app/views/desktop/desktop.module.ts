@@ -31,6 +31,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { CardFormComponent } from './components-desktop/card-form/card-form.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import {MatBadgeModule} from '@angular/material/badge';
 
 @NgModule({
   declarations: [HomeComponent, TableViewComponent, CardFormComponent],
@@ -49,6 +50,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
     MatPaginatorModule,
     MatDatepickerModule,
     ReactiveFormsModule,
+    MatBadgeModule,
   ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'pt-BR' },

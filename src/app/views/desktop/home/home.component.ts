@@ -5,6 +5,7 @@ import { DesktopFormComponent } from 'src/app/views/desktop/components-desktop/d
 import { Desktop } from 'src/app/models/Desktop.model';
 import { DesktopService } from 'src/app/services/desktop.service';
 import { Router } from '@angular/router';
+import { USerService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-home',
@@ -14,19 +15,26 @@ import { Router } from '@angular/router';
 export class HomeComponent implements OnInit {
   public desktopData: Desktop[] | any = [];
 
+  private emailUser: any = '';
+
   constructor(
     private _desktopService: DesktopService,
     private _dialogRef: MatDialog,
-    private _route: Router,
-  ) {}
+    private _userService: USerService,
+    private _route: Router
+  ) {
 
-  ngOnInit(): void {
-    this.findDesktop();
   }
 
-   public openDialog(): void {
+  ngOnInit(): void {
+    this.findUser();
+    this.findDesktop();
+    // this.verifyLength();
+  }
+
+  public openDialog(): void {
     const dialogRef = this._dialogRef.open(DesktopFormComponent);
-    dialogRef.afterClosed().subscribe( (res : any) => {
+    dialogRef.afterClosed().subscribe((res: any) => {
       this.findDesktop();
     });
   }
@@ -42,12 +50,49 @@ export class HomeComponent implements OnInit {
       )
       .subscribe({
         next: ({ data }) => {
-          this.desktopData = data;
-          this.desktopData.length === 0 ? this.openDialog() : '';
+          const deskData: any = data;
+          const emailToFilter = this.emailUser;
+
+          this.desktopData = [];
+
+          deskData.forEach((item: Desktop) => {
+            if (item.membersDesktop) {
+              const hasEmail = item.membersDesktop.some((member: any) => member.email === emailToFilter);
+              if (hasEmail) {
+                this.desktopData.push(item);
+              }
+            }
+          });
+
+          if (this.desktopData.length === 0) {
+            this.openDialog();
+          }
+
+          console.log(this.desktopData);
+
+
         },
         error: (err) => {
           throw new Error(err);
         },
       });
+  }
+
+  private findUser(): void {
+    const userId: number | string | null = localStorage.getItem('_i_.ind0');
+    this._userService.findUser(userId).subscribe({
+      next: (res) => {
+        this.emailUser = res.body?.email;
+      },
+      error: (err) => {
+        throw new Error(err);
+      },
+    });
+  }
+
+  private verifyLength() {
+    setTimeout(() => {
+      this.desktopData.length === 0 ? this.openDialog() : '';
+    },2000);
   }
 }

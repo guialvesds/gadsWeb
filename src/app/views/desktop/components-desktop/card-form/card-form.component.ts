@@ -21,6 +21,7 @@ import { ErrorComponent } from 'src/app/components/error/error.component';
   styleUrls: ['./card-form.component.scss'],
 })
 export class CardFormComponent implements OnInit {
+  public cardFormControl = new FormControl('', [Validators.required]);
   public cardForm: FormGroup = this._formBuild.group({
     title: new FormControl('', [Validators.required]),
     delivery_date: new FormControl('', [Validators.required]),
@@ -38,6 +39,12 @@ export class CardFormComponent implements OnInit {
   ngOnInit(): void {}
 
   public createCard(): void {
+    if (
+      this.cardForm.value.title === '' ||
+      this.cardForm.value.delivery_date === ''
+    ) {
+      return;
+    }
     this._cardService.createCard(this.cardForm.value, this.data).subscribe({
       next: (res) => {
         if (res.status === 201) {

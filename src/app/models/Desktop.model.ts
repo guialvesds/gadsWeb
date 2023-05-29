@@ -12,4 +12,10 @@ export interface Desktop {
     desktopId: number,
     id: number
   ];
+  membersDesktop?: [
+    id: number,
+    email: string,
+    primary_name: string,
+    second_name: string
+  ]
 }
