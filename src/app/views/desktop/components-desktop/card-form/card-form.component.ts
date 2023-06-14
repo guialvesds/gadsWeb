@@ -25,6 +25,7 @@ export class CardFormComponent implements OnInit {
   public cardForm: FormGroup = this._formBuild.group({
     title: new FormControl('', [Validators.required]),
     delivery_date: new FormControl('', [Validators.required]),
+    // groupeCard: new FormControl(''),
   });
 
   public validation: boolean = false;

@@ -13,6 +13,11 @@ const routes: Routes = [
       import('./views/login/login.module').then((m) => m.LoginModule),
   },
   {
+    path: 'user',
+    loadChildren: () =>
+      import('./views/user/user.module').then((m) => m.UserModule),
+  },
+  {
     path: '',
     redirectTo: '/',
     pathMatch: 'full',

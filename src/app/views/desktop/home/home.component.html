@@ -10,7 +10,7 @@
         <mat-icon matBadge="12" matBadgeColor="warn">message</mat-icon>
       </button>
       </div>
-      <button></button>
+      <button (click)="openPerfilModal()"></button>
     </div>
   </mat-toolbar>
   <div class="container-content">
@@ -23,7 +23,7 @@
             <div class="top">
               <cdk-virtual-scroll-viewport autosize appendOnly itemSize="5" class="scroll">
                 <button class="desktop-item-button" *cdkVirtualFor="let desktop of desktopData"
-                  routerLink="desktopTableView/{{desktop.id}}"
+                  (click)="goRouter(desktop.id)"
                   routerLinkActive="selected">
                   <span>{{ desktop.name.charAt(0).toUpperCase() + desktop.name.substring(1, 7)}}</span>
                 </button>
