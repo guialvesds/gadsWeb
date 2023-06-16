@@ -8,26 +8,176 @@ span {
   padding: 5px;
 
   .title-container {
-    width: auto;
+    width: 100%;
     margin: 0, auto;
+    margin-bottom: -2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-inline: 10px;
+    margin-top: -1rem;
+
+    .title-h1 {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding-top: 20px;
+    }
 
     h1 {
       color: gray;
       font-size: 2em;
       font-weight: 500;
     }
+
+    button {
+      margin-top: -1rem;
+      margin: auto 0;
+      width: 10%;
+      height: 2rem;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+      border: 2px solid rgb(161, 161, 161);
+      background-color: transparent;
+      font-size: 0.9rem;
+      font-weight: 400;
+      letter-spacing: 2px;
+      color: gray;
+
+      &:hover {
+        color: #000;
+        border: 2px solid #000;
+      }
+
+      mat-icon {
+        margin: auto 0;
+      }
+
+    }
   }
 
   .image-container {
-    width: 60%;
-    height: 60%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 
-    img {
+    .avatar-upload {
+      position: relative;
+      max-width: 205px;
+      margin: 50px auto;
+    }
+
+    .avatar-upload .avatar-edit {
+      position: absolute;
+      right: 12px;
+      z-index: 1;
+      top: 10px;
+    }
+
+    .avatar-upload .avatar-edit input {
+      display: none;
+    }
+
+    .avatar-upload .avatar-edit input+label {
+      display: inline-block;
+      width: 34px;
+      height: 34px;
+      margin-bottom: 0;
+      border-radius: 100%;
+      background: #FFFFFF;
+      color: #F98E77;
+      border: 1px solid transparent;
+      box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.12);
+      cursor: pointer;
+      padding: 3.5px;
+      font-weight: normal;
+      transition: all 0.2s ease-in-out;
+    }
+
+    .avatar-upload .avatar-edit input+label:hover {
+      background: #f1f1f1;
+      border-color: #d6d6d6;
+    }
+
+    .avatar-upload .avatar-edit input+label:after {
+      content: "\f040";
+      font-family: 'FontAwesome';
+      color: #F98E77;
+      position: absolute;
+      top: 10px;
+      left: 0;
+      right: 0;
+      text-align: center;
+      margin: auto;
+    }
+
+    .avatar-upload .avatar-preview {
+      width: 210px;
+      height: 210px;
+      position: relative;
+      border-radius: 100%;
+      border: 6px solid gray;
+      box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
+    }
+
+    .avatar-upload .avatar-preview>img {
       width: 100%;
-      border-radius: 50%;
-      margin-top: -1.5rem;
+      height: 100%;
+      border-radius: 100%;
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+
+    .container-upload-image {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      width: 90%;
+      margin-top: -2rem;
+      bottom: 1rem;
+
+      span {
+        font-size: 1.3em;
+        font-weight: 500;
+        color: #F98E77;
+        letter-spacing: 1.2px;
+      }
+
+      button {
+        margin: auto 0;
+        width: 55%;
+        height: 2rem;
+        padding: 5px;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+        border: 2px solid rgb(161, 161, 161);
+        background-color: transparent;
+        font-size: 0.9rem;
+        font-weight: 400;
+        letter-spacing: 2px;
+        color: gray;
+
+        &:hover {
+          color: #000;
+        }
+
+        &:last-child {
+          background-color: #F98E77;
+          color: #fff;
+          width: 30%;
+          margin-left: 5px;
+          border: none;
+        }
+      }
     }
   }
+
 
   .info-container {
     display: flex;

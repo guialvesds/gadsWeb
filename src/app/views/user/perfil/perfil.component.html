@@ -1,12 +1,29 @@
 <span>
   <div class="title-container">
-    <h1>{{userData.primary_name!}} {{userData.second_name}}</h1>
+    <div class="title-h1">
+      <h1>{{userData.primary_name!}} {{userData.second_name}}</h1>
+    </div>
+    <button mat-dialog-close ><mat-icon class="icon">close</mat-icon></button>
   </div>
   <div class="image-container">
-    <img src="../../../../assets/perfil-image.jpg" alt="">
+    <div class="avatar-upload">
+      <div class="avatar-edit">
+        <input type="file" id="profile-picture" (change)="onFileSelected($event)" accept="image/*">
+        <label for="profile-picture"><mat-icon class="icon">add_photo_alternate</mat-icon></label>
+      </div>
+      <div class="avatar-preview">
+        <img [src]="previewUrl ? previewUrl : predefinedImageUrl" alt="Foto de Perfil" width="200">
+      </div>
+    </div>
+    <div class="container-upload-image" *ngIf="previewUrl">
+      <span>Deseja usar esta foto?</span>
+      <button (click)="upload()">Sim, Enviar</button>
+      <button (click)="unsetImage()">Não</button>
+    </div>
   </div>
   <div class="info-container">
     <p>E-mail: {{userData.email}}</p>
     <p>Criado em: {{modifyDate(userData. created_at)}}</p>
+    <p>Perfil: Admin</p>
   </div>
 </span>
