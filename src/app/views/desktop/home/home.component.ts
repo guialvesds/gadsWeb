@@ -44,7 +44,7 @@ export class HomeComponent implements OnInit {
       location.reload();
     });
 
-    this._route.navigated;
+    // this._route.navigated;
   }
 
   public openPerfilModal(): void {

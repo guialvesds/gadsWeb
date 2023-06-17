@@ -76,7 +76,7 @@ export class LoginComponent implements OnInit {
 
         localStorage.setItem('acc', data.access_token);
         localStorage.setItem('_i_.ind0', data.id);
-        this._route.navigate(['home']);
+        this._route.navigate(['home/desktopInfoHomeView']);
       },
       error: (err) => {
         if (err.error.error == 'Unauthorized') {

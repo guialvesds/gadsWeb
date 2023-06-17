@@ -32,9 +32,10 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { CardFormComponent } from './components-desktop/card-form/card-form.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import {MatBadgeModule} from '@angular/material/badge';
+import { InfoHomeComponent } from './info-home/info-home.component';
 
 @NgModule({
-  declarations: [HomeComponent, TableViewComponent, CardFormComponent],
+  declarations: [HomeComponent, TableViewComponent, CardFormComponent, InfoHomeComponent],
   imports: [
     CommonModule,
     MatFormFieldModule,

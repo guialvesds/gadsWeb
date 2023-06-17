@@ -193,4 +193,30 @@ span {
       font-weight: 500;
     }
   }
+
+  .footer {
+    width: 100%;
+    display: flex;
+    justify-content: end;
+    padding: 0;
+
+    button {
+      width: 8%;
+      height: 1rem;
+      cursor: pointer;
+      border: none;
+      background-color: transparent;
+      font-size: 1rem;
+      font-weight: 400;
+      letter-spacing: 2px;
+      color: gray;
+      padding: 5px;
+      margin-right: 5px;
+
+      &:hover {
+        color: #000;
+        border-bottom: 3px solid #F98E77;
+      }
+    }
+  }
 }

@@ -7,8 +7,8 @@
     <div class="container-user">
       <div class="notification-container">
         <button>
-        <mat-icon matBadge="12" matBadgeColor="warn">message</mat-icon>
-      </button>
+          <mat-icon matBadge="12" matBadgeColor="warn">message</mat-icon>
+        </button>
       </div>
       <button (click)="openPerfilModal()"></button>
     </div>
@@ -17,14 +17,18 @@
     <div class="example-container">
       <div class="example-sidenav" mode="side" opened>
         <div class="top-sidenav">
+          <div class="home-button">
+            <button routerLinkActive="selected" routerLink="desktopInfoHomeView">
+              <span>Home</span>
+            </button>
+          </div>
           <h1>AT</h1>
           <hr class="hr">
           <div class="desktop-item">
             <div class="top">
               <cdk-virtual-scroll-viewport autosize appendOnly itemSize="5" class="scroll">
                 <button class="desktop-item-button" *cdkVirtualFor="let desktop of desktopData"
-                  (click)="goRouter(desktop.id)"
-                  routerLinkActive="selected">
+                  (click)="goRouter(desktop.id)" routerLinkActive="selected">
                   <span>{{ desktop.name.charAt(0).toUpperCase() + desktop.name.substring(1, 7)}}</span>
                 </button>
               </cdk-virtual-scroll-viewport>

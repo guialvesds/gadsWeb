@@ -7,7 +7,8 @@ import {
   Validators,
 } from '@angular/forms';
 
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { map, retry } from 'rxjs';
 import { User } from 'src/app/models/User.model';
 import { USerService } from 'src/app/services/user.service';
@@ -27,7 +28,9 @@ export class PerfilComponent implements OnInit {
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: number,
-    private _userService: USerService
+    private _userService: USerService,
+    private _route: Router,
+    private _dialogRef: MatDialog,
   ) {}
 
   ngOnInit(): void {
@@ -57,10 +60,13 @@ export class PerfilComponent implements OnInit {
   }
 
   public upload(): void {
-    // Aqui você pode adicionar a lógica para enviar a foto para a sua API
-    // usando uma biblioteca como o HttpClient do Angular
-    // Exemplo: this.http.post('sua-api.com/upload', this.selectedFile);
     console.log('Foto enviada:', this.selectedFile);
+  }
+
+  public logOff(): void {
+    this._dialogRef.closeAll();
+    window.localStorage.removeItem('acc');
+    this._route.navigate(['login']);
   }
 
   private findUser(): void {

@@ -111,6 +111,16 @@ section {
           padding: 0;
           margin: 0;
         }
+
+        mat-icon {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          font-size: 70px;
+          font-weight: 400;
+          color: #fff;
+          margin: auto;
+        }
       }
     }
   }
@@ -127,6 +137,12 @@ section {
 
     .mat-elevation-z8 {
       box-shadow: none;
+      width: 89.14vw;
+      margin: 0%;
+
+      mat-paginator {
+        width: 100%
+      }
     }
 
     .mat-mdc-form-field {
@@ -142,7 +158,7 @@ section {
     }
 
     .scroll {
-      width: 88vw;
+      width: 89.2vw;
       height: 65vh;
       background-color: white;
     }

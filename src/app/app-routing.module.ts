@@ -8,7 +8,7 @@ const routes: Routes = [
       import('./views/desktop/desktop.module').then((m) => m.DesktopModule),
   },
   {
-    path: '',
+    path: 'login',
     loadChildren: () =>
       import('./views/login/login.module').then((m) => m.LoginModule),
   },
