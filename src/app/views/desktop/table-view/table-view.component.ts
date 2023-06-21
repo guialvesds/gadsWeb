@@ -16,6 +16,7 @@ import { CardService } from 'src/app/services/card.service';
 import { MatDialog } from '@angular/material/dialog';
 import { RemoveAcceptComponent } from 'src/app/components/removeAccept/removeaccept.component';
 import { CardFormComponent } from '../components-desktop/card-form/card-form.component';
+import { SettingsFormsComponent } from '../components-desktop/settings-forms/settings-forms.component';
 
 @Component({
   selector: 'app-table-view',
@@ -64,6 +65,14 @@ export class TableViewComponent implements OnInit {
     const id: number = this.desktopData.id;
     const dialogRef = this._dialogRef.open(CardFormComponent, {
       data: id,
+    });
+    this.refrashCloseDialog(dialogRef);
+  }
+  public desktopSettings(): void {
+    const id: number = this.desktopData.id;
+    const dialogRef = this._dialogRef.open(SettingsFormsComponent, {
+      data: id,
+      width: "60%",
     });
     this.refrashCloseDialog(dialogRef);
   }

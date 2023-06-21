@@ -33,9 +33,11 @@ import { CardFormComponent } from './components-desktop/card-form/card-form.comp
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import {MatBadgeModule} from '@angular/material/badge';
 import { InfoHomeComponent } from './info-home/info-home.component';
+import { SettingsFormsComponent } from './components-desktop/settings-forms/settings-forms.component';
+import {MatListModule} from '@angular/material/list';
 
 @NgModule({
-  declarations: [HomeComponent, TableViewComponent, CardFormComponent, InfoHomeComponent],
+  declarations: [HomeComponent, TableViewComponent, CardFormComponent, InfoHomeComponent, SettingsFormsComponent],
   imports: [
     CommonModule,
     MatFormFieldModule,
@@ -52,6 +54,7 @@ import { InfoHomeComponent } from './info-home/info-home.component';
     MatDatepickerModule,
     ReactiveFormsModule,
     MatBadgeModule,
+    MatListModule,
   ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'pt-BR' },

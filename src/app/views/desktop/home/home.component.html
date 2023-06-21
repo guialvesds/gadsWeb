@@ -24,7 +24,7 @@
           </div>
           <h1>AT</h1>
           <hr class="hr">
-          <div class="desktop-item">
+          <div class="desktop-item" [matBadge]="desktopData.length" matBadgeColor="warn">
             <div class="top">
               <cdk-virtual-scroll-viewport autosize appendOnly itemSize="5" class="scroll">
                 <button class="desktop-item-button" *cdkVirtualFor="let desktop of desktopData"
@@ -34,8 +34,8 @@
               </cdk-virtual-scroll-viewport>
             </div>
             <div class="bottom">
-              <button class="desktop-item-plus" (click)="openDialog()">
-                <mat-icon fontIcon="add"></mat-icon>
+              <button (click)="openDialog()">
+                <mat-icon>add</mat-icon>
               </button>
             </div>
           </div>
