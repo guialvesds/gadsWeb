@@ -68,6 +68,10 @@ export class CreateAccountComponent implements OnInit {
     return (this.hide = !this.hide);
   }
 
+  public backLogin(): void {
+    this._route.navigate(['login']);
+  }
+
   public create(event: Event): void {
     event.preventDefault();
 

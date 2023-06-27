@@ -1,8 +1,9 @@
-import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, catchError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Desktop } from '../models/Desktop.model';
+
 
 @Injectable({
   providedIn: 'root',
@@ -44,6 +45,13 @@ export class DesktopService {
   public deleteDesktop(id: number): void {
     this.http.delete(`${this.url}/${id}`, {
       headers: this.head_obj,
+    });
+  }
+
+  public addMemberToDesktop(id: number,  userEmail: string): Observable<HttpResponse<Desktop>> {
+   return this.http.patch<Desktop>(`${this.url}/${id}/addMember/${userEmail}`, null, {
+      headers: this.head_obj,
+      observe: 'response'
     });
   }
 }

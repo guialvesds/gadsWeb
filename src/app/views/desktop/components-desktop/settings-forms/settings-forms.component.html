@@ -1,27 +1,38 @@
 <section class="container">
   <div class="header-container">
     <div class="title-h1">
-      <h1>Configurações do Ambiente de Trabalho : Teste</h1>
+      <h1>Configurações do Ambiente de Trabalho : {{desktopData.name}}</h1>
     </div>
     <button mat-dialog-close><mat-icon class="icon">close</mat-icon></button>
   </div>
-  <div class="main-container">
-    <div class="add-member">
-      <div class="input">
-        <label for="email">Adicionar membro:</label>
-        <input type="email" name="email">
-        <div class="button">
-          <button>Adicionar</button>
+  <form [formGroup]="settingsForm">
+    <div class="main-container">
+      <div class="add-member">
+        <div class="input">
+          <label for="email">Adicionar membro:</label>
+          <input type="email" name="email" formControlName="email">
+          <div class="button">
+            <button (click)="addMemberToDesktop()">Adicionar</button>
+          </div>
+        </div>
+        <div class="list-container">
+          <mat-list role="list" *ngFor="let data of desktopData.membersDesktop">
+            <mat-list-item role="listitem" class="item-list">
+              <span>{{data.primary_name}} {{data.second_name}}</span><span>- {{data.email}}</span><span class="button"
+                *ngIf="verifyAdm()">Remover</span>
+            </mat-list-item>
+          </mat-list>
         </div>
       </div>
-      <div class="list-container">
-        <mat-list role="list">
-          <mat-list-item role="listitem">Item 1</mat-list-item>
-        </mat-list>
-      </div>
     </div>
-  </div>
+
   <div class="footer-container">
     <h2>Excluir Ambiente de trabalho</h2>
+    <h4>Para excluir digite {{desktopData.name}} + /sim. Ex: {{desktopData.name}}/sim.<span> Lembre-se, isso é permanente!</span></h4>
+    <div class="input">
+      <input type="text" name="name" formControlName="desktopName">
+      <button *ngIf="verifyDeleteDesktop()">Excluir</button>
+    </div>
   </div>
+</form>
 </section>
