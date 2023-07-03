@@ -5,18 +5,14 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Desktop } from 'src/app/models/Desktop.model';
 import { DesktopService } from 'src/app/services/desktop.service';
 
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { CardService } from 'src/app/services/card.service';
-import { MatDialog } from '@angular/material/dialog';
-import { RemoveAcceptComponent } from 'src/app/components/removeAccept/removeaccept.component';
-import { CardFormComponent } from '../components-desktop/card-form/card-form.component';
-import { SettingsFormsComponent } from '../components-desktop/settings-forms/settings-forms.component';
+import { ModalShare } from 'src/app/share/modal-share';
 
 @Component({
   selector: 'app-table-view',
@@ -46,37 +42,33 @@ export class TableViewComponent implements OnInit {
     private _formBuild: FormBuilder,
     private _route: ActivatedRoute,
     private _desktopService: DesktopService,
-    private _dialogRef: MatDialog
+    private _modalShare: ModalShare
   ) {}
 
   ngOnInit(): void {
-    this.tableViewForm;
     this.getDesktop();
   }
-
-  public openDialog(id: number): void {
-    const dialogRef = this._dialogRef.open(RemoveAcceptComponent, {
-      data: id,
-    });
+  // Modal para abrir a visualização do card
+  public openCardView(id: number): void {
+    this._modalShare.openCardView(id);
+  }
+  // Modal para excluir um card
+  public deleteCard(id: number): void {
+    const dialogRef = this._modalShare.deleteCard(id);
     this.refrashCloseDialog(dialogRef);
   }
-
+  // Modal para criar um novo card
   public newCard(): void {
-    const id: number = this.desktopData.id;
-    const dialogRef = this._dialogRef.open(CardFormComponent, {
-      data: id,
-    });
+    const dialogRef = this._modalShare.newCard(this.desktopData.id);
     this.refrashCloseDialog(dialogRef);
   }
+  // Modal para configurações do card
   public desktopSettings(): void {
-    const id: number = this.desktopData.id;
-    const dialogRef = this._dialogRef.open(SettingsFormsComponent, {
-      data: id,
-      width: "60%",
-    });
+    const dialogRef = this._modalShare.desktopSettings(this.desktopData.id);
     this.refrashCloseDialog(dialogRef);
   }
 
+  // Filtro de busca
   public applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -86,14 +78,17 @@ export class TableViewComponent implements OnInit {
     }
   }
 
+  // Verifica se o card possui data de entrega
   public verifyDelivery(row: any): string {
     return row.delivery_date ? row.delivery_date : '';
   }
 
+  // Organiza data em string DD/MM/AAAA
   public modifyDate(row: string): string {
     return row.toLocaleString().substring(0, 10).split('-').reverse().join('/');
   }
 
+  // Busca as informações do desktop
   private getDesktop(): void {
     this._desktopService.findOneDesktop(this.getIdDesktop()).subscribe({
       next: (res) => {
@@ -110,17 +105,20 @@ export class TableViewComponent implements OnInit {
     });
   }
 
+  // Busca o ID desktop pelo paramento enviado pelo routerLink
   private getIdDesktop(): number {
     const id = this._route.snapshot.paramMap.get('id');
     return Number(id);
   }
 
+  // Executa a função de busca de itens do desktop
   private refrashCloseDialog(dialogRef: any): void {
     dialogRef.afterClosed().subscribe((res: any) => {
       this.getDesktop();
     });
   }
 
+  // Valida cor pelo tempo que falta para chegar na data de entrega {
   public refDateColor(c: any) {
     if (this.validRed(this.getDiffDate(c))) {
       const color = '#e46666';
@@ -139,7 +137,6 @@ export class TableViewComponent implements OnInit {
     }
     return c;
   }
-
 
   private validRed(diffDays: number): boolean {
     return diffDays <= 2 && diffDays >= 0;
@@ -164,4 +161,5 @@ export class TableViewComponent implements OnInit {
 
     return diffDays;
   }
+  //  } função finaliza aqui
 }

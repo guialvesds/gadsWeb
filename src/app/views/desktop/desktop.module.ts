@@ -31,14 +31,22 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { CardFormComponent } from './components-desktop/card-form/card-form.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import {MatBadgeModule} from '@angular/material/badge';
+import { MatBadgeModule } from '@angular/material/badge';
 import { InfoHomeComponent } from './info-home/info-home.component';
 import { SettingsFormsComponent } from './components-desktop/settings-forms/settings-forms.component';
-import {MatListModule} from '@angular/material/list';
+import { MatListModule } from '@angular/material/list';
 import { CardViewComponent } from './card-view/card-view.component';
+import { ModalShare } from 'src/app/share/modal-share';
 
 @NgModule({
-  declarations: [HomeComponent, TableViewComponent, CardFormComponent, InfoHomeComponent, SettingsFormsComponent, CardViewComponent],
+  declarations: [
+    HomeComponent,
+    TableViewComponent,
+    CardFormComponent,
+    InfoHomeComponent,
+    SettingsFormsComponent,
+    CardViewComponent,
+  ],
   imports: [
     CommonModule,
     MatFormFieldModule,
@@ -58,6 +66,7 @@ import { CardViewComponent } from './card-view/card-view.component';
     MatListModule,
   ],
   providers: [
+    { provide: ModalShare },
     { provide: MAT_DATE_LOCALE, useValue: 'pt-BR' },
     {
       provide: DateAdapter,

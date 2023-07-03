@@ -16,6 +16,7 @@ import {MatInputModule} from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 import { ErrorComponent } from './components/error/error.component';
 import { RemoveAcceptComponent } from './components/removeAccept/removeaccept.component';
+import { ModalShare } from './share/modal-share';
 
 
 @NgModule({
