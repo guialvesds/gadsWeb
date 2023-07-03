@@ -35,9 +35,10 @@ import {MatBadgeModule} from '@angular/material/badge';
 import { InfoHomeComponent } from './info-home/info-home.component';
 import { SettingsFormsComponent } from './components-desktop/settings-forms/settings-forms.component';
 import {MatListModule} from '@angular/material/list';
+import { CardViewComponent } from './card-view/card-view.component';
 
 @NgModule({
-  declarations: [HomeComponent, TableViewComponent, CardFormComponent, InfoHomeComponent, SettingsFormsComponent],
+  declarations: [HomeComponent, TableViewComponent, CardFormComponent, InfoHomeComponent, SettingsFormsComponent, CardViewComponent],
   imports: [
     CommonModule,
     MatFormFieldModule,
