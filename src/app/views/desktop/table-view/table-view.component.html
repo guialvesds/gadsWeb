@@ -43,14 +43,14 @@
           <!-- Created Column -->
           <ng-container matColumnDef="created_at">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Criado Em </th>
-            <td mat-cell *matCellDef="let row"> {{modifyDate(row.created_at)}} </td>
+            <td mat-cell *matCellDef="let row"> {{_functionShare.modifyDateString(row.created_at)}} </td>
           </ng-container>
 
           <!-- Delivery Column -->
           <ng-container matColumnDef="delivary_date">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Data de Entrega </th>
             <td mat-cell *matCellDef="let row" class="td-deliveryData">
-              <p [ngStyle]="{'background-color': refDateColor(row)}">{{modifyDate(verifyDelivery(row))}}</p>
+              <p [ngStyle]="{'background-color': _functionShare.refDateColor(row)}">{{_functionShare.modifyDateString(verifyDelivery(row))}}</p>
             </td>
           </ng-container>
 

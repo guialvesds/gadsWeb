@@ -30,6 +30,7 @@ export class ModalShare {
   public openCardView(data: number): DialogRef | any {
     return this._dialogRef.open(CardViewComponent, {
       data: data,
+      width: '60%'
     });
   }
 

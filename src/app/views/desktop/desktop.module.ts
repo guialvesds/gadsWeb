@@ -37,6 +37,9 @@ import { SettingsFormsComponent } from './components-desktop/settings-forms/sett
 import { MatListModule } from '@angular/material/list';
 import { CardViewComponent } from './card-view/card-view.component';
 import { ModalShare } from 'src/app/share/modal-share';
+import { FunctionShare } from 'src/app/share/function-share';
+import { MatCardModule } from '@angular/material/card';
+
 
 @NgModule({
   declarations: [
@@ -64,9 +67,11 @@ import { ModalShare } from 'src/app/share/modal-share';
     ReactiveFormsModule,
     MatBadgeModule,
     MatListModule,
+    MatCardModule,
   ],
   providers: [
     { provide: ModalShare },
+    { provide: FunctionShare },
     { provide: MAT_DATE_LOCALE, useValue: 'pt-BR' },
     {
       provide: DateAdapter,

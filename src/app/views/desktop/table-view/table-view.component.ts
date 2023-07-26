@@ -13,6 +13,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ModalShare } from 'src/app/share/modal-share';
+import { FunctionShare } from 'src/app/share/function-share';
 
 @Component({
   selector: 'app-table-view',
@@ -42,7 +43,8 @@ export class TableViewComponent implements OnInit {
     private _formBuild: FormBuilder,
     private _route: ActivatedRoute,
     private _desktopService: DesktopService,
-    private _modalShare: ModalShare
+    private _modalShare: ModalShare,
+    public _functionShare: FunctionShare,
   ) {}
 
   ngOnInit(): void {
@@ -83,11 +85,6 @@ export class TableViewComponent implements OnInit {
     return row.delivery_date ? row.delivery_date : '';
   }
 
-  // Organiza data em string DD/MM/AAAA
-  public modifyDate(row: string): string {
-    return row.toLocaleString().substring(0, 10).split('-').reverse().join('/');
-  }
-
   // Busca as informações do desktop
   private getDesktop(): void {
     this._desktopService.findOneDesktop(this.getIdDesktop()).subscribe({
@@ -117,49 +114,4 @@ export class TableViewComponent implements OnInit {
       this.getDesktop();
     });
   }
-
-  // Valida cor pelo tempo que falta para chegar na data de entrega {
-  public refDateColor(c: any) {
-    if (this.validRed(this.getDiffDate(c))) {
-      const color = '#e46666';
-      return color;
-    }
-    if (this.validOrange(this.getDiffDate(c))) {
-      const color = '#e9be6d';
-      return color;
-    }
-    if (this.validGray(this.getDiffDate(c))) {
-      const color = 'gray';
-      return color;
-    } else if (this.validGreen(this.getDiffDate(c))) {
-      const color = '#7dc58d';
-      return color;
-    }
-    return c;
-  }
-
-  private validRed(diffDays: number): boolean {
-    return diffDays <= 2 && diffDays >= 0;
-  }
-  private validOrange(diffDays: number): boolean {
-    return diffDays >= 3 && diffDays <= 5;
-  }
-  private validGreen(diffDays: number): boolean {
-    return diffDays >= 6;
-  }
-  private validGray(diffDays: number): boolean {
-    return diffDays < 0;
-  }
-
-  private getDiffDate(c: any): number {
-    const endDate: any = new Date(c.delivery_date);
-    const iniDate: any = new Date();
-
-    const diffTime = endDate - iniDate;
-    const timeDay = 1000 * 60 * 60 * 24; // milesegundos * segundos * horas dia
-    const diffDays = Math.ceil(diffTime / timeDay);
-
-    return diffDays;
-  }
-  //  } função finaliza aqui
 }

@@ -17,7 +17,7 @@ section {
       width: 60%;
       display: flex;
       flex-direction: row;
-      justify-content: start;
+      justify-content: flex-start;
       align-items: center;
 
       .filter-container {
@@ -191,11 +191,12 @@ section {
 
     .td-deliveryData {
       p {
-        width: 5rem;
+        width: 7.2rem;
         padding-left: 5px;
         padding-right: 5px;
         border-radius: 3px;
         color: white;
+        text-align: center;
       }
     }
 
