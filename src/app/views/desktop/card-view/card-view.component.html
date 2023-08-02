@@ -10,18 +10,25 @@
       <span class="delivery-date">Data de entrega<p [ngStyle]="{'background-color': _functionShare.refDateColor(cardData)}">
           {{_functionShare.modifyDateString(cardData.delivery_date)}}</p></span>
       <div class="forms">
-        <form>
+        <cdk-virtual-scroll-viewport autosize appendOnly itemSize="10" class="scroll">
+        <form [formGroup]="cardForm">
           <!-- Descrição -->
           <div class="model-form-main">
             <div class="model-form-main-title">
               <span>Descrição</span>
               <div class="model-form-main-title-button">
-                <button>Salvar</button>
+                <button *ngIf="!cardData.description || description " (click)="patchDescription()">Salvar</button>
+                <button  *ngIf="cardData.description" (click)="editMode()">{{ !description ? 'Editar' : 'Cancelar Edição'}}</button>
               </div>
             </div>
-            <mat-form-field class="example-full-width">
-              <textarea matInput placeholder="Ex. Realizar novas tarefas até sexta-feira..."></textarea>
-            </mat-form-field>
+            <div class="example-full-width-description">
+                <textarea matInput *ngIf="!cardData.description || description; else yesDescription" placeholder="Ex. Realizar novas tarefas até sexta-feira..." formControlName="description"></textarea>
+              <ng-template #yesDescription>
+                <div class="description-text">
+                  <span>{{cardData.description}}</span>
+                </div>
+              </ng-template>
+            </div>
           </div>
           <!-- Comentários -->
           <div class="model-form-main">
@@ -56,6 +63,7 @@
             </div>
           </div>
         </form>
+      </cdk-virtual-scroll-viewport>
       </div>
     </div>
     <div class="main-actions">

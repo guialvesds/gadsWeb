@@ -20,23 +20,30 @@ export class CardService {
 
   constructor(private http: HttpClient) {}
 
-  public finOnCard(id: number): Observable<HttpResponse<Card>> {
-    return this.http.get<Card>(`${this.url}/${id}`, {
+  public finOnCard(idCard: number): Observable<HttpResponse<Card>> {
+    return this.http.get<Card>(`${this.url}/${idCard}`, {
       headers: this.head_obj,
       observe: 'response',
     });
   }
 
-  public createCard(data: FormData, idDesktop: number): Observable<HttpResponse<Card>> {
-    return this.http.post<Card>(`${this.url}/${idDesktop}`, data, {
+  public createCard(data: FormData, idCard: number): Observable<HttpResponse<Card>> {
+    return this.http.post<Card>(`${this.url}/${idCard}`, data, {
       headers: this.head_obj,
       observe: 'response',
     });
   }
 
-  public deleteCard(id: number) {
-  return this.http.delete(`${this.url}/${id}`, {
+  public deleteCard(idCard: number) {
+  return this.http.delete(`${this.url}/${idCard}`, {
       headers: this.head_obj,
+    });
+  }
+
+  public updateCard(idCard: number, data: string): Observable<HttpResponse<Card>> {
+    return this.http.patch<Card>(`${this.url}/${idCard}`, data, {
+      headers: this.head_obj,
+      observe: 'response',
     });
   }
 }

@@ -51,9 +51,9 @@ export class FunctionShare {
 
   // Organiza data em string 00/AAA/00
   public modifyDateString(date: string): string {
-    const day = date.toLocaleString().substring(8, 10);
-    const mounth = date.toLocaleString().substring(5, 7);
-    const year = date.toLocaleString().substring(2, 4);
+    const day = date.substring(8, 10);
+    const mounth = date.substring(5, 7);
+    const year = date.substring(2, 4);
 
     let fullDate: string = '';
 
