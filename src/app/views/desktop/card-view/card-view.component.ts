@@ -1,3 +1,4 @@
+import { ErrorComponent } from 'src/app/components/error/error.component';
 import { Desktop } from './../../../models/Desktop.model';
 import { Component, Inject, OnInit } from '@angular/core';
 import {
@@ -9,6 +10,7 @@ import {
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Card } from 'src/app/models/Card.model';
 import { CardService } from 'src/app/services/card.service';
+import { CommentService } from 'src/app/services/comment.service';
 import { FunctionShare } from 'src/app/share/function-share';
 
 interface Comment {
@@ -22,63 +24,85 @@ interface Comment {
   styleUrls: ['./card-view.component.scss'],
 })
 export class CardViewComponent implements OnInit {
-
   public cardData!: Card | any;
   public description: boolean = false;
   public cancelEditDescription: boolean = true;
 
   public cardForm: FormGroup = this._formBuild.group({
     description: new FormControl(''),
+    commentCard: new FormControl(''),
   });
-
-  comments: Comment[] = [
-    { author: 'John', date: '2023-07-01', content: 'Great post!' },
-    { author: 'Jane', date: '2023-07-02', content: 'Thanks for sharing.' },
-    { author: 'Bob', date: '2023-07-03', content: 'I have a question.' },
-  ];
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: number,
     public _functionShare: FunctionShare,
     private _cardSevice: CardService,
+    private _commentCardService: CommentService,
     private _formBuild: FormBuilder
   ) {}
 
   ngOnInit(): void {
     this.findCard();
-
   }
 
-   public editMode() {
+  public deleteCommentCard(idComment: number): void {
+    this._commentCardService
+      .deleteCommentCard(idComment)
+      .subscribe({
+        next: (res) => {
+          console.log('deu certo', res);
+          this.findCard();
+        },
+        error: (err) => {
+          console.log('deu certo', err);
+        },
+      });
+  }
+
+  public createCommentCard(): void {
+    const data: any = {
+      comment_text: this.cardForm.value.commentCard,
+    };
+
+    this._commentCardService
+      .createCommentCard(this.cardData.id, data)
+      .subscribe({
+        next: (res) => {
+          console.log('deu certo', res);
+          this.findCard();
+        },
+        error: (err) => {
+          console.log('deu certo', err);
+        },
+      });
+  }
+
+  public comparUser(userComment: any): boolean {
+    const idUSerLogged = localStorage.getItem('accus');
+    const idUSerComment = userComment;
+
+    if (idUSerLogged === idUSerComment) {
+      return true;
+    }
+
+    return false;
+  }
+
+  public editMode() {
     this.description = !this.description;
 
     if (this.description) {
-          // Se a descrição for verdadeira, atualiza o valor do campo description com o valor do <p>
-          this.cardForm.patchValue({
-            description: this.cardData.description
-          });
-        }
+      // Se a descrição for verdadeira, atualiza o valor do campo description com o valor do <p>
+      this.cardForm.value.description.patchValue({
+        description: this.cardData.description,
+      });
+    }
   }
-
-  // public editMode() {
-  //   this.description = !this.description;
-
-  //   if (this.description) {
-  //     // Se a descrição for verdadeira, atualiza o valor do campo description com o valor do <p>
-  //     this.cardForm.patchValue({
-  //       description: this.cardData.description
-  //     });
-  //   }
-  // }
-
-  // public editDescription(): boolean {
-  //   return this.description = false;
-  // }
 
   // Edita a descrição do card.
   public patchDescription(): void {
     this._cardSevice
-      .updateCard(this.cardData.id, this.cardForm.value)
+      .updateCard(this.cardData.id, this.cardForm.value.description)
       .subscribe({
         next: (res) => {
           this.findCard();

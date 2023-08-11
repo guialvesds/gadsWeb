@@ -75,7 +75,7 @@ export class LoginComponent implements OnInit {
         const data: string | number | any = res.body;
 
         localStorage.setItem('acc', data.access_token);
-        localStorage.setItem('_i_.ind0', data.id);
+        localStorage.setItem('accus', data.id);
         this._route.navigate(['home/desktopInfoHomeView']);
       },
       error: (err) => {

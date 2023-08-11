@@ -41,25 +41,26 @@
                   <img src="../../../../assets/perfil-image.jpg" alt="">
                 </div>
                 <div class="comment-content">
-                  <textarea class="comment-input" placeholder="Digite seu comentário"></textarea>
-                  <button class="comment-button">Comentar</button>
+                  <textarea class="comment-input" placeholder="Digite seu comentário" formControlName="commentCard"></textarea>
+                  <button class="comment-button" (click)="createCommentCard()">Comentar</button>
                 </div>
               </div>
             </div>
-            <div class="comments-list">
+            <div class="comments-list" *ngFor="let comment of cardData.comment">
               <div class="comment">
                 <div class="comment-avatar">
                   <img src="../../../../assets/perfil-image.jpg" alt="">
                 </div>
                 <div class="comment-details">
                   <div class="comment-author">Guilherme Alves</div>
-                  <div class="comment-date">25/01/2023</div>
+                  <div class="comment-date">{{comment.created_at}}</div>
+                </div>
+                <div class="comment-action-button">
+                  <button (click)="deleteCommentCard(comment.id)">Excluir</button>
                 </div>
               </div>
               <div class="comment-text">
-                <span>O que é Lorem Ipsum?
-
-                  Lorem Ipsum é simplesmente uma simulação de texto da indústria tipográfica e de impressos, e vem sendo utilizado desde o século XVI, quando um impressor desconhecido pegou uma bandeja de tipos e os embaralhou para fazer um livro de modelos de tipos. Lorem Ipsum sobreviveu não só a cinco séculos, como também ao salto para a editoração eletrônica, permanecendo essencialmente inalterado. Se popularizou na década de 60, quando a Letraset lançou decalques contendo passagens de Lorem Ipsum, e mais recentemente quando passou a ser integrado a softwares de editoração eletrônica como Aldus PageMaker. aaaa@gmail.com</span>
+                <span>{{comment.comment_text}}</span>
               </div>
             </div>
           </div>

@@ -232,6 +232,7 @@
               margin-left: 5px;
 
               .comment {
+                width: 100%;
                 padding-inline: 5px;
                 padding-left: 10px;
                 display: flex;
@@ -250,6 +251,7 @@
                 }
 
                 .comment-details {
+                  width: 80%;
                   margin-left: 10px;
                   display: flex;
                   flex-direction: row;
@@ -258,6 +260,26 @@
 
                   .comment-date {
                     margin-left: 10px;
+                  }
+                }
+
+                .comment-action-button {
+                  display: flex;
+                  justify-content: end;
+                  align-items: center;
+                  width: 20%;
+
+                  button {
+                    border: none;
+                    background-color: transparent;
+                    cursor: pointer;
+                    color: #F98E77;
+                    font-size: .9em;
+                    font-weight: 400;
+
+                    &:hover {
+                      color: #c55d45;
+                    }
                   }
                 }
               }
