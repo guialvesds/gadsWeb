@@ -35,11 +35,15 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { InfoHomeComponent } from './info-home/info-home.component';
 import { SettingsFormsComponent } from './components-desktop/settings-forms/settings-forms.component';
 import { MatListModule } from '@angular/material/list';
+import {MatMenuModule} from '@angular/material/menu';
+
+
+import { OverlayModule } from '@angular/cdk/overlay';
+
 import { CardViewComponent } from './card-view/card-view.component';
 import { ModalShare } from 'src/app/share/modal-share';
 import { FunctionShare } from 'src/app/share/function-share';
 import { MatCardModule } from '@angular/material/card';
-
 
 @NgModule({
   declarations: [
@@ -68,6 +72,8 @@ import { MatCardModule } from '@angular/material/card';
     MatBadgeModule,
     MatListModule,
     MatCardModule,
+    MatMenuModule,
+    OverlayModule,
   ],
   providers: [
     { provide: ModalShare },

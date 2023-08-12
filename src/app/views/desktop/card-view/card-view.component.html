@@ -52,10 +52,10 @@
                   <img src="../../../../assets/perfil-image.jpg" alt="">
                 </div>
                 <div class="comment-details">
-                  <div class="comment-author">Guilherme Alves</div>
-                  <div class="comment-date">{{comment.created_at}}</div>
+                  <div class="comment-author">{{comment.userName}}</div>
+                  <div class="comment-date">{{_functionShare.modifyDateString(comment.created_at)}}</div>
                 </div>
-                <div class="comment-action-button">
+                <div class="comment-action-button" *ngIf="comparUser(comment.userId)">
                   <button (click)="deleteCommentCard(comment.id)">Excluir</button>
                 </div>
               </div>
@@ -70,7 +70,7 @@
     </div>
     <div class="main-actions">
       <span>Ações do Cartão</span>
-      <button><mat-icon>perm_identity</mat-icon> Membros</button>
+      <button (click)="opemMember($event)"><mat-icon>perm_identity</mat-icon> Membros</button>
       <button><mat-icon>list_alt</mat-icon> CheckList</button>
       <button><mat-icon>unarchive</mat-icon> Anexo</button>
       <div class="main-action-members">

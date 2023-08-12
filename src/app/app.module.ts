@@ -17,6 +17,8 @@ import { FormsModule } from '@angular/forms';
 import { ErrorComponent } from './components/error/error.component';
 import { RemoveAcceptComponent } from './components/removeAccept/removeaccept.component';
 import { ModalShare } from './share/modal-share';
+import { MemberModalComponent } from './views/desktop/components-desktop/member-modal/member-modal.component';
+
 
 
 @NgModule({
@@ -26,6 +28,7 @@ import { ModalShare } from './share/modal-share';
     DesktopFormComponent,
     ErrorComponent,
     RemoveAcceptComponent,
+    MemberModalComponent,
   ],
   imports: [
     BrowserModule,

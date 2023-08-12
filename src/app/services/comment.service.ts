@@ -26,7 +26,7 @@ export class CommentService {
     });
   }
 
-  public createCommentCard(idCard: number, data: FormData): Observable<HttpResponse<Comment>> {
+  public createCommentCard(idCard: number, data: object): Observable<HttpResponse<Comment>> {
     return this.http.post<Comment>(`${this.url}/${idCard}`, data, {
       headers: this.head_obj,
       observe: 'response',

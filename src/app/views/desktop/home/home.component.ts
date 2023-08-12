@@ -98,7 +98,7 @@ export class HomeComponent implements OnInit {
   }
 
   private findUser(): void {
-    const userId: number | string | null = localStorage.getItem('_i_.ind0');
+    const userId: number | string | null = localStorage.getItem('accus');
     this._userService.findUser(userId).subscribe({
       next: (res) => {
         this.emailUser = res.body!.email;

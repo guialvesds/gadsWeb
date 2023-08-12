@@ -7,6 +7,7 @@ import { SuccessactionComponent } from '../components/successAction/successactio
 import { CardViewComponent } from '../views/desktop/card-view/card-view.component';
 import { RemoveAcceptComponent } from '../components/removeAccept/removeaccept.component';
 import { DialogRef } from '@angular/cdk/dialog';
+import { MemberModalComponent } from '../views/desktop/components-desktop/member-modal/member-modal.component';
 
 @Injectable()
 export class ModalShare {
@@ -30,7 +31,8 @@ export class ModalShare {
   public openCardView(data: number): DialogRef | any {
     return this._dialogRef.open(CardViewComponent, {
       data: data,
-      width: '60%'
+      width: '60%',
+      height: '90%'
     });
   }
 
@@ -53,6 +55,14 @@ export class ModalShare {
     const dialogRef = this._dialogRef.open(SettingsFormsComponent, {
       data: data,
       width: '60%',
+    });
+  }
+
+   //Modal para Member
+   public member(x: number, y: number) {
+    const dialogRef = this._dialogRef.open(MemberModalComponent, {
+      autoFocus: false,
+      position: { left: x + 'px', top: y + 'px' },
     });
   }
 }

@@ -43,7 +43,7 @@
         <!-- Password -->
         <mat-form-field appearance="fill" class="example-full-width">
           <mat-label>Senha</mat-label>
-          <input minlength="4" maxlength="8" matInput formControlName="password" [type]="hide ? 'password' : 'text'" placeholder="Ex. @123A4b" >
+          <input minlength="4" maxlength="20" matInput formControlName="password" [type]="hide ? 'password' : 'text'" placeholder="Ex. @123A4b" >
           <button mat-icon-button matSuffix (click)="preventDefPass($event)" [attr.aria-label]="'Hide password'"
             [attr.aria-pressed]="hide">
             <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
@@ -64,7 +64,7 @@
         </ng-template>
       </form>
       <!-- Footer Text Responsiv -->
-      <h3>Sua <strong>Senha</strong> deve ter de 4 a 8 caracters com <strong>@Aa1.</strong></h3>
+      <h3>Sua <strong>Senha</strong> deve ter de 4 a 20 caracters com <strong>@Aa1.</strong></h3>
       <h3>Já possui conta? <strong><a routerLink="login">logue aqui!</a></strong></h3>
     </div>
   </section>

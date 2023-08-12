@@ -1,5 +1,3 @@
-import { ErrorComponent } from 'src/app/components/error/error.component';
-import { Desktop } from './../../../models/Desktop.model';
 import { Component, Inject, OnInit } from '@angular/core';
 import {
   FormGroup,
@@ -12,6 +10,7 @@ import { Card } from 'src/app/models/Card.model';
 import { CardService } from 'src/app/services/card.service';
 import { CommentService } from 'src/app/services/comment.service';
 import { FunctionShare } from 'src/app/share/function-share';
+import { ModalShare } from 'src/app/share/modal-share';
 
 interface Comment {
   author: string;
@@ -33,9 +32,12 @@ export class CardViewComponent implements OnInit {
     commentCard: new FormControl(''),
   });
 
+  public modalOpen: boolean = false;
+
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: number,
     public _functionShare: FunctionShare,
+    private _modalShare: ModalShare,
     private _cardSevice: CardService,
     private _commentCardService: CommentService,
     private _formBuild: FormBuilder
@@ -45,22 +47,34 @@ export class CardViewComponent implements OnInit {
     this.findCard();
   }
 
+  get title() {
+    return this.cardForm.get('title')!;
+  }
+
+  public opemMember(event: MouseEvent,) {
+    this.modalOpen = true;
+
+    // Obtenha as coordenadas do clique do mouse
+    const x = event.clientX;
+    const y = event.clientY;
+
+    this._modalShare.member(x, y);
+  }
+
   public deleteCommentCard(idComment: number): void {
-    this._commentCardService
-      .deleteCommentCard(idComment)
-      .subscribe({
-        next: (res) => {
-          console.log('deu certo', res);
-          this.findCard();
-        },
-        error: (err) => {
-          console.log('deu certo', err);
-        },
-      });
+    this._commentCardService.deleteCommentCard(idComment).subscribe({
+      next: (res) => {
+        console.log('deu certo', res);
+        this.findCard();
+      },
+      error: (err) => {
+        console.log('deu certo', err);
+      },
+    });
   }
 
   public createCommentCard(): void {
-    const data: any = {
+    const data: object = {
       comment_text: this.cardForm.value.commentCard,
     };
 
@@ -69,6 +83,7 @@ export class CardViewComponent implements OnInit {
       .subscribe({
         next: (res) => {
           console.log('deu certo', res);
+          this.cardForm.reset();
           this.findCard();
         },
         error: (err) => {
@@ -81,38 +96,36 @@ export class CardViewComponent implements OnInit {
     const idUSerLogged = localStorage.getItem('accus');
     const idUSerComment = userComment;
 
-    if (idUSerLogged === idUSerComment) {
-      return true;
-    }
+    return idUSerLogged == idUSerComment ? true : false;
+  }
 
-    return false;
+  // Edita a descrição do card.
+  public patchDescription(): void {
+    const data: object = {
+      description: this.cardForm.value.description,
+    };
+
+    this._cardSevice.updateCard(this.cardData.id, data).subscribe({
+      next: (res) => {
+        this.findCard();
+        this.description = true;
+        this.editMode();
+      },
+      error: (err) => {
+        console.error(err);
+      },
+    });
   }
 
   public editMode() {
     this.description = !this.description;
 
     if (this.description) {
-      // Se a descrição for verdadeira, atualiza o valor do campo description com o valor do <p>
-      this.cardForm.value.description.patchValue({
+      // Se a descrição for verdadeira, atualiza o valor do campo description com o valor do <span>
+      this.cardForm.patchValue({
         description: this.cardData.description,
       });
     }
-  }
-
-  // Edita a descrição do card.
-  public patchDescription(): void {
-    this._cardSevice
-      .updateCard(this.cardData.id, this.cardForm.value.description)
-      .subscribe({
-        next: (res) => {
-          this.findCard();
-          this.description = true;
-          this.editMode();
-        },
-        error: (err) => {
-          console.log(err);
-        },
-      });
   }
 
   // Verifica se o card possui data de entrega
@@ -128,7 +141,9 @@ export class CardViewComponent implements OnInit {
 
         this.cardData = res.body;
       },
-      error: (err) => {},
+      error: (err) => {
+        console.error(err);
+      },
     });
   }
 }

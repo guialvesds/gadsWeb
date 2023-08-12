@@ -40,7 +40,7 @@ export class CardService {
     });
   }
 
-  public updateCard(idCard: number, data: string): Observable<HttpResponse<Card>> {
+  public updateCard(idCard: number, data: object): Observable<HttpResponse<Card>> {
     return this.http.patch<Card>(`${this.url}/${idCard}`, data, {
       headers: this.head_obj,
       observe: 'response',
