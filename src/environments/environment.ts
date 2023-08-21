@@ -1,4 +1,5 @@
 export const environment = {
   production: false,
-  baseApiUrl: "http://localhost:3000"
+  baseApiUrl: "apigads-production.up.railway.app"
+  // baseApiUrl: "http://localhost:3000"
 };
