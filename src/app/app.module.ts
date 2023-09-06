@@ -18,6 +18,8 @@ import { ErrorComponent } from './components/error/error.component';
 import { RemoveAcceptComponent } from './components/removeAccept/removeaccept.component';
 import { ModalShare } from './share/modal-share';
 import { MemberModalComponent } from './views/desktop/components-desktop/member-modal/member-modal.component';
+import { MatListModule } from '@angular/material/list';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 
 
@@ -41,6 +43,8 @@ import { MemberModalComponent } from './views/desktop/components-desktop/member-
     MatIconModule,
     MatInputModule,
     FormsModule,
+    MatListModule,
+    ScrollingModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

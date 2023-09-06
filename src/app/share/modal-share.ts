@@ -59,9 +59,10 @@ export class ModalShare {
   }
 
    //Modal para Member
-   public member(x: number, y: number) {
+   public member(x: number, y: number, cardId: number) {
     const dialogRef = this._dialogRef.open(MemberModalComponent, {
       autoFocus: false,
+      data: cardId,
       position: { left: x + 'px', top: y + 'px' },
     });
   }

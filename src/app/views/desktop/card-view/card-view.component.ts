@@ -58,7 +58,7 @@ export class CardViewComponent implements OnInit {
     const x = event.clientX;
     const y = event.clientY;
 
-    this._modalShare.member(x, y);
+    this._modalShare.member(x, y, this.cardData.id);
   }
 
   public deleteCommentCard(idComment: number): void {

@@ -9,12 +9,20 @@
   </div>
   <div class="main">
     <input type="text" name="search-member" #searchMember>
-  <div class="member-in-card">
-    teste
+    <div class="member-in-card">
+      <cdk-virtual-scroll-viewport autosize appendOnly itemSize="5" class="scroll">
+        <form>
+          <mat-selection-list>
+            <mat-list-option *ngFor="let shoe of typesOfShoes">
+              {{shoe}}
+            </mat-list-option>
+          </mat-selection-list>
+        </form>
+      </cdk-virtual-scroll-viewport>
+    </div>
+    <div class="buttons">
+      <button class="cancel-button">Adicionar</button>
+      <button class="add-button" mat-dialog-close>Cancelar</button>
+    </div>
   </div>
-  <div class="member-in-desktop">
-    teste 2
-  </div>
-  </div>
-
 </div>
