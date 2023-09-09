@@ -44,6 +44,8 @@ import { CardViewComponent } from './card-view/card-view.component';
 import { ModalShare } from 'src/app/share/modal-share';
 import { FunctionShare } from 'src/app/share/function-share';
 import { MatCardModule } from '@angular/material/card';
+import {MatChipsModule} from '@angular/material/chips';
+
 
 @NgModule({
   declarations: [
@@ -74,6 +76,7 @@ import { MatCardModule } from '@angular/material/card';
     MatCardModule,
     MatMenuModule,
     OverlayModule,
+    MatChipsModule
   ],
   providers: [
     { provide: ModalShare },

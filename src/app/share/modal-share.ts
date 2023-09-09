@@ -32,7 +32,7 @@ export class ModalShare {
     return this._dialogRef.open(CardViewComponent, {
       data: data,
       width: '60%',
-      height: '90%'
+      height: '90%',
     });
   }
 
@@ -58,12 +58,12 @@ export class ModalShare {
     });
   }
 
-   //Modal para Member
-   public member(x: number, y: number, cardId: number) {
+  //Modal para Member
+  public member(modalData: any) {
     const dialogRef = this._dialogRef.open(MemberModalComponent, {
       autoFocus: false,
-      data: cardId,
-      position: { left: x + 'px', top: y + 'px' },
+      data: modalData,
+      position: { left: modalData.x + 'px', top: modalData.y + 'px' },
     });
   }
 }

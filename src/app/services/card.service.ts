@@ -46,4 +46,12 @@ export class CardService {
       observe: 'response',
     });
   }
+
+  public addMemberCard(id: number, userId: number, data: any): Observable<HttpResponse<any>> {
+    return this.http.patch<any>(`${this.url}/${id}/addMember/${userId}`, data, {
+      headers: this.head_obj,
+      observe: 'response',
+    });
+  }
+
 }

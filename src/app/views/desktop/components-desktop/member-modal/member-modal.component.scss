@@ -56,6 +56,18 @@
       margin-bottom: 5px;
     }
 
+    .sucess, .error {
+      text-align: center;
+      padding: 3px;
+      color: #000;
+      font-weight: bold;
+      background-color: rgb(146, 255, 146);
+    }
+
+    .error {
+      background-color: rgb(255, 146, 146);
+    }
+
     .member-in-card {
 
       .scroll {

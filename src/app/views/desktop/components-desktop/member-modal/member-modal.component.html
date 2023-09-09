@@ -8,20 +8,33 @@
     </button>
   </div>
   <div class="main">
-    <input type="text" name="search-member" #searchMember>
+    <input type="text" name="search-member" (input)="searchs($event)" #searchMember>
+    <p *ngIf="addMmeberSucess"  class="sucess">Adicionado com sucesso!</p>
+    <p  *ngIf="addMmeberError" class="error">Erro ao adicionar.</p>
     <div class="member-in-card">
       <cdk-virtual-scroll-viewport autosize appendOnly itemSize="5" class="scroll">
-        <form>
-          <mat-selection-list>
-            <mat-list-option *ngFor="let shoe of typesOfShoes">
-              {{shoe}}
+        <form [formGroup]="memberForm">
+          <mat-selection-list formControlName="memberSelected">
+            <mat-list-option *ngFor="let shoe of typesOfShoes" [value]="shoe.id">
+              {{shoe.primary_name + ' ' + shoe.second_name}}
             </mat-list-option>
           </mat-selection-list>
         </form>
       </cdk-virtual-scroll-viewport>
+      <!-- <div class="member-on-card">
+        <cdk-virtual-scroll-viewport autosize appendOnly itemSize="5" class="scroll">
+          <form [formGroup]="memberForm">
+            <mat-selection-list formControlName="memberSelected">
+              <mat-list-option *ngFor="let shoe of membersInCard" [value]="shoe.id">
+                {{shoe.primary_name + ' ' + shoe.second_name}}
+              </mat-list-option>
+            </mat-selection-list>
+          </form>
+        </cdk-virtual-scroll-viewport>
+      </div> -->
     </div>
     <div class="buttons">
-      <button class="cancel-button">Adicionar</button>
+      <button class="cancel-button" (click)="addMember()">Adicionar</button>
       <button class="add-button" mat-dialog-close>Cancelar</button>
     </div>
   </div>

@@ -75,6 +75,24 @@
       <button><mat-icon>unarchive</mat-icon> Anexo</button>
       <div class="main-action-members">
         <span>Membros</span>
+        <div class="member-container">
+          <mat-chip-grid #chipGrid aria-label="Enter keywords">
+            <mat-chip-row *ngFor="let members of cardData.membersCard" class="item-container">
+            <!-- <mat-chip-row *ngFor="let members of cardData.membersCard" (removed)=""> -->
+              <img matChipAvatar src="https://material.angular.io/assets/img/examples/shiba1.jpg" alt="Photo of a Shiba Inu"/>
+              <!-- {{members.primary_name[0]}} -->
+              <button matChipRemove aria-label="'remove ' + keyword">
+                <mat-icon>cancel</mat-icon>
+              </button>
+            </mat-chip-row>
+          </mat-chip-grid>
+          <!-- <mat-chip-listbox aria-label="Dog selection" *ngFor="let members of cardData.membersCard">
+            <mat-chip>
+              <img matChipAvatar src="https://material.angular.io/assets/img/examples/shiba1.jpg" alt="Photo of a Shiba Inu"/>
+              {{members.primary_name[0]}}
+            </mat-chip>
+          </mat-chip-listbox> -->
+        </div>
       </div>
     </div>
   </div>

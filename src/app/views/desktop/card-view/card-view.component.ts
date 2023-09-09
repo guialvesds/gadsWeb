@@ -6,17 +6,13 @@ import {
   FormBuilder,
 } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { map } from 'rxjs';
 import { Card } from 'src/app/models/Card.model';
 import { CardService } from 'src/app/services/card.service';
 import { CommentService } from 'src/app/services/comment.service';
 import { FunctionShare } from 'src/app/share/function-share';
 import { ModalShare } from 'src/app/share/modal-share';
 
-interface Comment {
-  author: string;
-  date: string;
-  content: string;
-}
 @Component({
   selector: 'app-card-view',
   templateUrl: './card-view.component.html',
@@ -51,14 +47,21 @@ export class CardViewComponent implements OnInit {
     return this.cardForm.get('title')!;
   }
 
-  public opemMember(event: MouseEvent,) {
+  public opemMember(event: MouseEvent) {
     this.modalOpen = true;
 
     // Obtenha as coordenadas do clique do mouse
     const x = event.clientX;
     const y = event.clientY;
 
-    this._modalShare.member(x, y, this.cardData.id);
+    const modalData = {
+      x: x,
+      y: y,
+      desktopId: this.cardData.desktopId,
+      cardId: this.cardData.id,
+    };
+
+    this._modalShare.member(modalData);
   }
 
   public deleteCommentCard(idComment: number): void {
@@ -135,15 +138,40 @@ export class CardViewComponent implements OnInit {
 
   // Busca um card pelo id passado pelo data do modal.
   private findCard(): void {
-    this._cardSevice.finOnCard(this.data).subscribe({
-      next: (res) => {
-        console.log(res);
+    this._cardSevice
+      .finOnCard(this.data)
+      .pipe(
+        map((member) => ({
+          ...member,
+          res: member.body,
+        }))
+      )
+      .subscribe({
+        next: ({ res }) => {
+          console.log('card', res);
 
-        this.cardData = res.body;
-      },
-      error: (err) => {
-        console.error(err);
-      },
-    });
+          this.cardData = res;
+        },
+        error: (err) => {
+          console.error(err);
+        },
+      });
   }
+
+  // Busca os membros do card
+  // private getMemberInCard(): void {
+  //   this._cardSevice
+  //     .finOnCard(this.cardData.id).pipe(map((member) => ({
+  //       ...member,
+  //       res: member.body!.membersCard,
+  //     }))).subscribe({
+  //       next: ( {res} ) => {
+
+  //       },
+  //       error: (err) => {
+  //         console.error(err);
+
+  //       }
+  //     });
+  // }
 }
