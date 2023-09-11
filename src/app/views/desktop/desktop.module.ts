@@ -45,6 +45,7 @@ import { ModalShare } from 'src/app/share/modal-share';
 import { FunctionShare } from 'src/app/share/function-share';
 import { MatCardModule } from '@angular/material/card';
 import {MatChipsModule} from '@angular/material/chips';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 
 @NgModule({
@@ -76,7 +77,8 @@ import {MatChipsModule} from '@angular/material/chips';
     MatCardModule,
     MatMenuModule,
     OverlayModule,
-    MatChipsModule
+    MatChipsModule,
+    MatTooltipModule
   ],
   providers: [
     { provide: ModalShare },

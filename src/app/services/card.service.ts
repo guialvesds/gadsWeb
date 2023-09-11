@@ -27,7 +27,10 @@ export class CardService {
     });
   }
 
-  public createCard(data: FormData, idCard: number): Observable<HttpResponse<Card>> {
+  public createCard(
+    data: FormData,
+    idCard: number
+  ): Observable<HttpResponse<Card>> {
     return this.http.post<Card>(`${this.url}/${idCard}`, data, {
       headers: this.head_obj,
       observe: 'response',
@@ -35,23 +38,44 @@ export class CardService {
   }
 
   public deleteCard(idCard: number) {
-  return this.http.delete(`${this.url}/${idCard}`, {
+    return this.http.delete(`${this.url}/${idCard}`, {
       headers: this.head_obj,
     });
   }
 
-  public updateCard(idCard: number, data: object): Observable<HttpResponse<Card>> {
+  public updateCard(
+    idCard: number,
+    data: object
+  ): Observable<HttpResponse<Card>> {
     return this.http.patch<Card>(`${this.url}/${idCard}`, data, {
       headers: this.head_obj,
       observe: 'response',
     });
   }
 
-  public addMemberCard(id: number, userId: number, data: any): Observable<HttpResponse<any>> {
+  public addMemberCard(
+    id: number,
+    userId: number,
+    data: any
+  ): Observable<HttpResponse<any>> {
     return this.http.patch<any>(`${this.url}/${id}/addMember/${userId}`, data, {
       headers: this.head_obj,
       observe: 'response',
     });
   }
 
+  public removeMemberCard(
+    id: number,
+    userId: number,
+    data: any
+  ): Observable<HttpResponse<any>> {
+    return this.http.patch<any>(
+      `${this.url}/${id}/removeMember/${userId}`,
+      data,
+      {
+        headers: this.head_obj,
+        observe: 'response',
+      }
+    );
+  }
 }

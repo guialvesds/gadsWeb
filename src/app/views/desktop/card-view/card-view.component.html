@@ -76,12 +76,14 @@
       <div class="main-action-members">
         <span>Membros</span>
         <div class="member-container">
-          <mat-chip-grid #chipGrid aria-label="Enter keywords">
-            <mat-chip-row *ngFor="let members of cardData.membersCard" class="item-container">
+          <mat-chip-grid>
+            <mat-chip-row *ngFor="let members of cardData.membersCard" class="item-container" [matTooltip]="members.primary_name + ' ' + members.second_name" >
             <!-- <mat-chip-row *ngFor="let members of cardData.membersCard" (removed)=""> -->
-              <img matChipAvatar src="https://material.angular.io/assets/img/examples/shiba1.jpg" alt="Photo of a Shiba Inu"/>
+              <button (click)="openPerfilModal(members.id)" class="button-perfil">
+                <img  matChipAvatar  src="https://material.angular.io/assets/img/examples/shiba1.jpg" alt="Photo of a Shiba Inu"/>
+              </button>
               <!-- {{members.primary_name[0]}} -->
-              <button matChipRemove aria-label="'remove ' + keyword">
+              <button (click)="removeMember(members.id)">
                 <mat-icon>cancel</mat-icon>
               </button>
             </mat-chip-row>

@@ -8,6 +8,7 @@ import { CardViewComponent } from '../views/desktop/card-view/card-view.componen
 import { RemoveAcceptComponent } from '../components/removeAccept/removeaccept.component';
 import { DialogRef } from '@angular/cdk/dialog';
 import { MemberModalComponent } from '../views/desktop/components-desktop/member-modal/member-modal.component';
+import { PerfilComponent } from '../views/user/perfil/perfil.component';
 
 @Injectable()
 export class ModalShare {
@@ -59,11 +60,28 @@ export class ModalShare {
   }
 
   //Modal para Member
-  public member(modalData: any) {
+  public member(modalData: any, schema: any): any {
     const dialogRef = this._dialogRef.open(MemberModalComponent, {
       autoFocus: false,
       data: modalData,
       position: { left: modalData.x + 'px', top: modalData.y + 'px' },
+    });
+
+    this.refrashCloseDialog(dialogRef, schema);
+  }
+
+  // Realiza uma chama em uma determinada função ao fechar o modal.
+  public refrashCloseDialog(dialogRef: any, schema: any): any {
+    dialogRef.afterClosed().subscribe((res: any) => {
+      return schema;
+    });
+  }
+
+  public openPerfilModal(userId: number): void {
+     this._dialogRef.open(PerfilComponent, {
+      width: '40%',
+      height: '80%',
+      data: userId,
     });
   }
 }

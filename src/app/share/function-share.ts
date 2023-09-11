@@ -59,40 +59,40 @@ export class FunctionShare {
 
     switch (mounth) {
       case '01':
-        fullDate = `${day} / Jan / ${year}`;
+        fullDate = `${day} /Jan /${year}`;
         break;
       case '02':
-        fullDate = `${day} / Fev / ${year}`;
+        fullDate = `${day} /Fev /${year}`;
         break;
       case '03':
-        fullDate = `${day} / Mar / ${year}`;
+        fullDate = `${day} /Mar /${year}`;
         break;
       case '04':
-        fullDate = `${day} / Abr / ${year}`;
+        fullDate = `${day} /Abr /${year}`;
         break;
       case '05':
-        fullDate = `${day} / Mai / ${year}`;
+        fullDate = `${day} /Mai /${year}`;
         break;
       case '06':
-        fullDate = `${day} / Jun / ${year}`;
+        fullDate = `${day} /Jun /${year}`;
         break;
       case '07':
-        fullDate = `${day} / Jul / ${year}`;
+        fullDate = `${day} /Jul /${year}`;
         break;
       case '08':
-        fullDate = `${day} / Ago / ${year}`;
+        fullDate = `${day} /Ago /${year}`;
         break;
       case '09':
-        fullDate = `${day} / Set / ${year}`;
+        fullDate = `${day} /Set /${year}`;
         break;
       case '10':
-        fullDate = `${day} / Out / ${year}`;
+        fullDate = `${day} /Out /${year}`;
         break;
       case '11':
-        fullDate = `${day} / Nov / ${year}`;
+        fullDate = `${day} /Nov /${year}`;
         break;
       case '12':
-        fullDate = `${day} / Dez / ${year}`;
+        fullDate = `${day} /Dez /${year}`;
         break;
     }
     return fullDate;

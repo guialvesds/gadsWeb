@@ -36,7 +36,6 @@ export class MemberModalComponent implements OnInit {
   ngOnInit(): void {
     this.getMemberCard();
     this.getMemberInCard();
-    console.log('datavew', this.data);
   }
 
   public searchs(e: Event): void {
@@ -73,17 +72,20 @@ export class MemberModalComponent implements OnInit {
 
   private getMemberInCard(): void {
     this._cardDataMember
-      .finOnCard(this.data.cardId).pipe(map((member) => ({
-        ...member,
-        res: member.body!.membersCard,
-      }))).subscribe({
-        next: ( {res} ) => {
-          this.membersInCard = res
+      .finOnCard(this.data.cardId)
+      .pipe(
+        map((member) => ({
+          ...member,
+          res: member.body!.membersCard,
+        }))
+      )
+      .subscribe({
+        next: ({ res }) => {
+          this.membersInCard = res;
         },
         error: (err) => {
           console.error(err);
-
-        }
+        },
       });
   }
 
@@ -106,5 +108,15 @@ export class MemberModalComponent implements OnInit {
       });
     this.addMmeberSucess = false;
     this.addMmeberError = false;
+  }
+
+  public verifyMemberInCard(id: any): boolean {
+    const idMembersInCard = this.membersInCard.map((item: { id: any }) => item.id);
+
+    if (idMembersInCard.includes(id)) {
+      return true;
+    }
+
+    return false;
   }
 }

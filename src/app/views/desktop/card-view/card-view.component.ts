@@ -5,13 +5,14 @@ import {
   Validators,
   FormBuilder,
 } from '@angular/forms';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { map } from 'rxjs';
 import { Card } from 'src/app/models/Card.model';
 import { CardService } from 'src/app/services/card.service';
 import { CommentService } from 'src/app/services/comment.service';
 import { FunctionShare } from 'src/app/share/function-share';
 import { ModalShare } from 'src/app/share/modal-share';
+import { MemberModalComponent } from '../components-desktop/member-modal/member-modal.component';
 
 @Component({
   selector: 'app-card-view',
@@ -36,7 +37,8 @@ export class CardViewComponent implements OnInit {
     private _modalShare: ModalShare,
     private _cardSevice: CardService,
     private _commentCardService: CommentService,
-    private _formBuild: FormBuilder
+    private _formBuild: FormBuilder,
+    private _dialogRef: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -51,17 +53,25 @@ export class CardViewComponent implements OnInit {
     this.modalOpen = true;
 
     // Obtenha as coordenadas do clique do mouse
-    const x = event.clientX;
-    const y = event.clientY;
+    // const x = event.clientX;
+    // const y = event.clientY;
 
     const modalData = {
-      x: x,
-      y: y,
+      x: event.clientX,
+      y: event.clientY,
       desktopId: this.cardData.desktopId,
       cardId: this.cardData.id,
     };
 
-    this._modalShare.member(modalData);
+    const dialogRef = this._dialogRef.open(MemberModalComponent, {
+      autoFocus: false,
+      data: modalData,
+      position: { left: modalData.x + 'px', top: modalData.y + 'px' },
+    });
+
+    this.refrashCloseDialog(dialogRef);
+    // this._modalShare.member(modalData, this.findCard());
+    // this._modalShare.refrashCloseDialog(this.findCard());
   }
 
   public deleteCommentCard(idComment: number): void {
@@ -136,6 +146,33 @@ export class CardViewComponent implements OnInit {
     return date.delivery_date ? date.delivery_date : null;
   }
 
+  // Deleta um membro do card
+
+  public removeMember(userId: number): void {
+
+    const data: Object = {}
+
+    this._cardSevice.removeMemberCard(this.data, userId, data).subscribe({
+      next: (res) => {
+        this.findCard();
+        console.log('Removeu', res);
+
+      },
+      error: (err) => {
+        console.error(err);
+
+      }
+    });
+  }
+
+  public openPerfilModal(userId: number): void {
+
+    const data: number = Number(userId);
+
+    this._modalShare.openPerfilModal(data);
+
+  }
+
   // Busca um card pelo id passado pelo data do modal.
   private findCard(): void {
     this._cardSevice
@@ -148,8 +185,6 @@ export class CardViewComponent implements OnInit {
       )
       .subscribe({
         next: ({ res }) => {
-          console.log('card', res);
-
           this.cardData = res;
         },
         error: (err) => {
@@ -158,6 +193,12 @@ export class CardViewComponent implements OnInit {
       });
   }
 
+  // Realiza uma chama em uma determinada função ao fechar o modal.
+  private refrashCloseDialog(dialogRef: any): any {
+    dialogRef.afterClosed().subscribe((res: any) => {
+      this.findCard();
+    });
+  }
   // Busca os membros do card
   // private getMemberInCard(): void {
   //   this._cardSevice

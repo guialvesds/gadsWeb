@@ -20,6 +20,8 @@ import { ModalShare } from './share/modal-share';
 import { MemberModalComponent } from './views/desktop/components-desktop/member-modal/member-modal.component';
 import { MatListModule } from '@angular/material/list';
 import { ScrollingModule } from '@angular/cdk/scrolling';
+import {MatTooltipModule} from '@angular/material/tooltip';
+
 
 
 
@@ -45,6 +47,7 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
     FormsModule,
     MatListModule,
     ScrollingModule,
+    MatTooltipModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

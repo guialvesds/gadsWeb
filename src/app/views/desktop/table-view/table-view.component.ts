@@ -108,7 +108,7 @@ export class TableViewComponent implements OnInit {
     return Number(id);
   }
 
-  // Executa a função de busca de itens do desktop
+  // Executa a função de busca de itens do desktop ao fechar o modal
   private refrashCloseDialog(dialogRef: any): void {
     dialogRef.afterClosed().subscribe((res: any) => {
       this.getDesktop();

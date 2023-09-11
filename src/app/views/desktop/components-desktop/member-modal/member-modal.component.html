@@ -8,14 +8,14 @@
     </button>
   </div>
   <div class="main">
-    <input type="text" name="search-member" (input)="searchs($event)" #searchMember>
+    <input type="text" name="search-member" placeholder="Nome, Sobrenome e E-mail" (input)="searchs($event)" #searchMember>
     <p *ngIf="addMmeberSucess"  class="sucess">Adicionado com sucesso!</p>
     <p  *ngIf="addMmeberError" class="error">Erro ao adicionar.</p>
     <div class="member-in-card">
       <cdk-virtual-scroll-viewport autosize appendOnly itemSize="5" class="scroll">
         <form [formGroup]="memberForm">
           <mat-selection-list formControlName="memberSelected">
-            <mat-list-option *ngFor="let shoe of typesOfShoes" [value]="shoe.id">
+            <mat-list-option *ngFor="let shoe of typesOfShoes" [value]="shoe.id"  [selected]="verifyMemberInCard(shoe.id)">
               {{shoe.primary_name + ' ' + shoe.second_name}}
             </mat-list-option>
           </mat-selection-list>
