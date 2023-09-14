@@ -31,7 +31,7 @@ export class CardViewComponent implements OnInit {
   });
 
   public modalOpen: boolean = false;
-  public panelOpenState: boolean = false;
+  public panelOpenState: boolean = true;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: number,

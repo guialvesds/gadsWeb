@@ -42,8 +42,8 @@
             </div>
             <div class="example-full-width-description">
               <mat-accordion *ngFor="let list of cardData.listTask" class="example-card">
-                <mat-expansion-panel (opened)="panelOpenState = true"
-                                     (closed)="panelOpenState = false">
+                <mat-expansion-panel (opened)="panelOpenState = false"
+                                     (closed)="panelOpenState = true">
                   <mat-expansion-panel-header>
 
                     <mat-panel-title>
@@ -53,9 +53,9 @@
                     </mat-panel-description> -->
                   </mat-expansion-panel-header>
                   <mat-selection-list >
-                    <mat-progress-bar mode="determinate" value="40"></mat-progress-bar>
-                    <mat-list-option *ngFor="let shoe of cardData.listTask.task">
-                      {{shoe.title}}
+                    <!-- <mat-progress-bar mode="determinate" value="40"></mat-progress-bar> -->
+                    <mat-list-option *ngFor="let task of cardData.listTask.task">
+                      {{task.title}}
                     </mat-list-option>
                   </mat-selection-list>
                   <mat-action-row class="action-task">

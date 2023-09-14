@@ -25,7 +25,6 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 
 
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,6 +33,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     ErrorComponent,
     RemoveAcceptComponent,
     MemberModalComponent,
+
 
   ],
   imports: [
