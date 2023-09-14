@@ -164,6 +164,49 @@
 
                 }
               }
+
+              .example-card {
+                width: 100%;
+                margin-top: 5px;
+                box-shadow: none !important;
+                border-radius: 0% !important;
+
+                mat-expansion-panel-header {
+                  width: 100%;
+
+                  mat-panel-title {
+                    width: 60%;
+
+                  }
+
+                  mat-panel-description {
+                    width: 40%;
+                    text-align: end;
+                  }
+                }
+                .action-task {
+                  display: flex;
+                  justify-content: flex-start;
+                  align-items: center;
+
+                  button {
+                    border: none;
+                    background-color: transparent;
+                    border-bottom: 2px solid rgb(199, 100, 43);
+
+                    font-size: 1em;
+                    font-weight: 500;
+                    color: rgb(68, 68, 68);
+
+                    cursor: pointer;
+
+                    &:hover {
+                      border-bottom: 2px solid rgb(136, 59, 15);
+                    }
+                  }
+
+                }
+              }
             }
 
             .comment-container {

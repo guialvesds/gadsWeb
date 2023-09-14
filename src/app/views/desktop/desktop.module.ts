@@ -46,6 +46,11 @@ import { FunctionShare } from 'src/app/share/function-share';
 import { MatCardModule } from '@angular/material/card';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import { TaskModalComponent } from './components-desktop/task-modal/task-modal.component';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {MatExpansionModule} from '@angular/material/expansion';
+
+
 
 
 @NgModule({
@@ -56,6 +61,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     InfoHomeComponent,
     SettingsFormsComponent,
     CardViewComponent,
+    TaskModalComponent,
   ],
   imports: [
     CommonModule,
@@ -78,7 +84,9 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     MatMenuModule,
     OverlayModule,
     MatChipsModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatProgressBarModule,
+    MatExpansionModule
   ],
   providers: [
     { provide: ModalShare },

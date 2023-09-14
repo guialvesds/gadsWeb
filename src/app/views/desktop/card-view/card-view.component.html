@@ -30,6 +30,42 @@
               </ng-template>
             </div>
           </div>
+
+          <!-- Tasks -->
+
+          <div class="model-form-main">
+            <div class="model-form-main-title">
+              <span>Lista de tarefas</span>
+              <div class="model-form-main-title-button">
+
+              </div>
+            </div>
+            <div class="example-full-width-description">
+              <mat-accordion *ngFor="let list of cardData.listTask" class="example-card">
+                <mat-expansion-panel (opened)="panelOpenState = true"
+                                     (closed)="panelOpenState = false">
+                  <mat-expansion-panel-header>
+
+                    <mat-panel-title>
+                      {{list.title}}
+                    </mat-panel-title>
+                    <!-- <mat-panel-description>
+                    </mat-panel-description> -->
+                  </mat-expansion-panel-header>
+                  <mat-selection-list >
+                    <mat-progress-bar mode="determinate" value="40"></mat-progress-bar>
+                    <mat-list-option *ngFor="let shoe of cardData.listTask.task">
+                      {{shoe.title}}
+                    </mat-list-option>
+                  </mat-selection-list>
+                  <mat-action-row class="action-task">
+                    <button mat-button>+ Adicionar Tarefa</button>
+                  </mat-action-row>
+                </mat-expansion-panel>
+              </mat-accordion>
+            </div>
+          </div>
+
           <!-- Comentários -->
           <div class="model-form-main">
             <div class="model-form-main-title">
@@ -71,7 +107,7 @@
     <div class="main-actions">
       <span>Ações do Cartão</span>
       <button (click)="opemMember($event)"><mat-icon>perm_identity</mat-icon> Membros</button>
-      <button><mat-icon>list_alt</mat-icon> CheckList</button>
+      <button (click)="opemTask($event)"><mat-icon>list_alt</mat-icon> CheckList</button>
       <button><mat-icon>unarchive</mat-icon> Anexo</button>
       <div class="main-action-members">
         <span>Membros</span>
@@ -88,12 +124,6 @@
               </button>
             </mat-chip-row>
           </mat-chip-grid>
-          <!-- <mat-chip-listbox aria-label="Dog selection" *ngFor="let members of cardData.membersCard">
-            <mat-chip>
-              <img matChipAvatar src="https://material.angular.io/assets/img/examples/shiba1.jpg" alt="Photo of a Shiba Inu"/>
-              {{members.primary_name[0]}}
-            </mat-chip>
-          </mat-chip-listbox> -->
         </div>
       </div>
     </div>

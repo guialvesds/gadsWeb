@@ -78,4 +78,14 @@ export class CardService {
       }
     );
   }
+
+  public addTaskCard(
+    idCard: number,
+    data: Object,
+  ): Observable<HttpResponse<any>> {
+    return this.http.post<any>(`${this.url}/list/${idCard}`, data, {
+      headers: this.head_obj,
+      observe: 'response',
+    });
+  }
 }

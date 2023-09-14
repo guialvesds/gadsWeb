@@ -1,0 +1,24 @@
+<div class="container">
+
+  <div class="header">
+    <div></div>
+    <span>Lista de Tarefas</span>
+    <button mat-dialog-close>
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+  <div class="main">
+    <form [formGroup]="listTaskForm">
+      <input type="text" name="task-title" value="Lista de tarefas titúlo" formControlName="title">
+    </form>
+    <p *ngIf="addTaskSucess" class="sucess">Adicionado com sucesso!</p>
+    <p *ngIf="addTaskError" class="error">Erro ao adicionar.</p>
+    <div class="member-in-card">
+
+    </div>
+    <div class="buttons">
+      <button class="cancel-button" (click)="addListTask()">Adicionar</button>
+      <button class="add-button" mat-dialog-close>Cancelar</button>
+    </div>
+  </div>
+</div>

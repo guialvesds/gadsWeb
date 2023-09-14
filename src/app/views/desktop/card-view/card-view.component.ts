@@ -13,6 +13,7 @@ import { CommentService } from 'src/app/services/comment.service';
 import { FunctionShare } from 'src/app/share/function-share';
 import { ModalShare } from 'src/app/share/modal-share';
 import { MemberModalComponent } from '../components-desktop/member-modal/member-modal.component';
+import { TaskModalComponent } from '../components-desktop/task-modal/task-modal.component';
 
 @Component({
   selector: 'app-card-view',
@@ -30,6 +31,7 @@ export class CardViewComponent implements OnInit {
   });
 
   public modalOpen: boolean = false;
+  public panelOpenState: boolean = false;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: number,
@@ -52,10 +54,6 @@ export class CardViewComponent implements OnInit {
   public opemMember(event: MouseEvent) {
     this.modalOpen = true;
 
-    // Obtenha as coordenadas do clique do mouse
-    // const x = event.clientX;
-    // const y = event.clientY;
-
     const modalData = {
       x: event.clientX,
       y: event.clientY,
@@ -70,8 +68,24 @@ export class CardViewComponent implements OnInit {
     });
 
     this.refrashCloseDialog(dialogRef);
-    // this._modalShare.member(modalData, this.findCard());
-    // this._modalShare.refrashCloseDialog(this.findCard());
+  }
+
+  public opemTask(event: MouseEvent) {
+    this.modalOpen = true;
+
+    const modalData = {
+      x: event.clientX,
+      y: event.clientY,
+      cardId: this.cardData.id,
+    };
+
+    const dialogRef = this._dialogRef.open(TaskModalComponent, {
+      autoFocus: false,
+      data: modalData,
+      position: { left: modalData.x + 'px', top: modalData.y + 'px' },
+    });
+
+    this.refrashCloseDialog(dialogRef);
   }
 
   public deleteCommentCard(idComment: number): void {
@@ -155,7 +169,6 @@ export class CardViewComponent implements OnInit {
     this._cardSevice.removeMemberCard(this.data, userId, data).subscribe({
       next: (res) => {
         this.findCard();
-        console.log('Removeu', res);
 
       },
       error: (err) => {
@@ -181,11 +194,13 @@ export class CardViewComponent implements OnInit {
         map((member) => ({
           ...member,
           res: member.body,
+
         }))
       )
       .subscribe({
         next: ({ res }) => {
           this.cardData = res;
+          console.log(res);
         },
         error: (err) => {
           console.error(err);
