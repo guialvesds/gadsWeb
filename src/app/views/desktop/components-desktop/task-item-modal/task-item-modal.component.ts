@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { map } from 'rxjs';
@@ -10,17 +10,19 @@ import { CardService } from 'src/app/services/card.service';
   templateUrl: './task-item-modal.component.html',
   styleUrls: ['./task-item-modal.component.scss']
 })
-export class TaskItemModalComponent {
+export class TaskItemModalComponent implements OnInit {
 
   public addTaskSucess: boolean = false;
   public addTaskError: boolean = false;
   public taksData!: any;
   public taksAllData!: any;
   public membersInCard!: any;
+  private membersInTask!: any;
 
 
   public taskForm: FormGroup = this._formBuild.group({
-    title: new FormControl('Lista de tarefas titúlo', [Validators.required]),
+    title: new FormControl('', [Validators.required]),
+    delivery_date: new FormControl(''),
   });
 
   constructor(
@@ -28,6 +30,52 @@ export class TaskItemModalComponent {
     private _cardData: CardService,
     private _formBuild: FormBuilder
   ) {}
+
+  ngOnInit(): void {
+    this.getMemberInCard();
+    console.log('dados recebido na abertura do modal de task', this.data);
+
+  }
+
+  // Impedir que sábado e domingo sejam selecionados.
+  // myFilter = (d: Date | null): boolean => {
+  //   const day = (d || new Date()).getDay();
+  //   // Impedir que sábado e domingo sejam selecionados.
+  //   return day !== 0 && day !== 6;
+  // };
+
+  public addListTask(): void {
+
+    const data: Object = {
+      title: this.taskForm.value.title,
+      delivery_date: this.taskForm.value.delivery_date,
+      done: false,
+    }
+    this._cardData
+      .addTaskCard(this.data.listId, data)
+      .subscribe({
+        next: (res) => {
+          this.addTaskSucess = true;
+
+          console.log('log enviar tarefa', res);
+
+
+          setTimeout(()=> {
+
+          },2000);
+
+
+        },
+        error: (err) => {
+          this.addTaskError = true;
+          console.error(err);
+
+        },
+      });
+
+    this.addTaskSucess = false;
+    this.addTaskError = false;
+  }
 
   public searchs(e: Event): void {
     const target = e.target as HTMLInputElement;
@@ -64,12 +112,12 @@ export class TaskItemModalComponent {
       .pipe(
         map((member) => ({
           ...member,
-          res: member.body!.membersCard,
+          res: member.body,
         }))
       )
       .subscribe({
         next: ({ res }) => {
-          this.membersInCard = res;
+          this.membersInCard = res!.membersCard;
         },
         error: (err) => {
           console.error(err);

@@ -1,4 +1,5 @@
 export interface Card {
+  desktopId: any;
   id: number;
   title: string;
   description: string;
@@ -19,4 +20,18 @@ export interface Card {
     primary_name: string;
     second_name: string;
   };
+
+  listTask: {
+    id: number,
+    title: string,
+    created_at: string,
+    task: {
+      id: number;
+      title: any;
+      listId: number;
+      done: boolean;
+      created_at: string;
+      delivery_date: string;
+    }
+  }[]
 }

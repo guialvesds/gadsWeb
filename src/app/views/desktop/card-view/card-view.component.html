@@ -1,6 +1,6 @@
 <section class="container-card-view">
   <div class="header">
-    <span>{{cardData.title}}</span>
+    <span>{{cardData?.title}}</span>
     <button mat-dialog-close>
       <mat-icon>close</mat-icon>
     </button>
@@ -8,7 +8,7 @@
   <div class="main">
     <div class="main-detal">
       <span class="delivery-date">Data de entrega<p [ngStyle]="{'background-color': _functionShare.refDateColor(cardData)}">
-          {{_functionShare.modifyDateString(cardData.delivery_date)}}</p></span>
+          {{_functionShare.modifyDateString(cardData?.delivery_date?.toString() ?? '')}}</p></span>
       <div class="forms">
         <cdk-virtual-scroll-viewport autosize appendOnly itemSize="10" class="scroll">
         <form [formGroup]="cardForm">
@@ -17,15 +17,15 @@
             <div class="model-form-main-title">
               <span>Descrição</span>
               <div class="model-form-main-title-button">
-                <button *ngIf="!cardData.description || description " (click)="patchDescription()">Salvar</button>
-                <button  *ngIf="cardData.description" (click)="editMode()">{{ !description ? 'Editar' : 'Cancelar Edição'}}</button>
+                <button *ngIf="!cardData?.description || description " (click)="patchDescription()">Salvar</button>
+                <button  *ngIf="cardData?.description" (click)="editMode()">{{ !description ? 'Editar' : 'Cancelar Edição'}}</button>
               </div>
             </div>
             <div class="example-full-width-description">
-                <textarea matInput *ngIf="!cardData.description || description; else yesDescription" placeholder="Ex. Realizar novas tarefas até sexta-feira..." formControlName="description"></textarea>
+                <textarea matInput *ngIf="!cardData?.description || description; else yesDescription" placeholder="Ex. Realizar novas tarefas até sexta-feira..." formControlName="description"></textarea>
               <ng-template #yesDescription>
                 <div class="description-text">
-                  <span>{{cardData.description}}</span>
+                  <span>{{cardData?.description}}</span>
                 </div>
               </ng-template>
             </div>
@@ -33,7 +33,7 @@
 
           <!-- Tasks -->
 
-          <div class="model-form-main">
+          <div class="model-form-main" *ngIf="cardData?.listTask.length >=1">
             <div class="model-form-main-title">
               <span>Lista de tarefas</span>
               <div class="model-form-main-title-button">
@@ -41,28 +41,48 @@
               </div>
             </div>
             <div class="example-full-width-description">
-              <mat-accordion *ngFor="let list of cardData.listTask" class="example-card">
-                <mat-expansion-panel (opened)="panelOpenState = false"
-                                     (closed)="panelOpenState = true">
-                  <mat-expansion-panel-header>
 
-                    <mat-panel-title>
-                      {{list.title}}
-                    </mat-panel-title>
-                    <!-- <mat-panel-description>
-                    </mat-panel-description> -->
-                  </mat-expansion-panel-header>
-                  <mat-selection-list >
-                    <!-- <mat-progress-bar mode="determinate" value="40"></mat-progress-bar> -->
-                    <mat-list-option *ngFor="let task of cardData.listTask.task">
-                      {{task.title}}
-                    </mat-list-option>
-                  </mat-selection-list>
-                  <mat-action-row class="action-task">
-                    <button mat-button>+ Adicionar Tarefa</button>
-                  </mat-action-row>
-                </mat-expansion-panel>
-              </mat-accordion>
+              <mat-card *ngFor="let list of cardData?.listTask" class="example-card">
+                <mat-card-header class="example-card-header">
+                  <mat-card-title> <h2>{{list.title}}</h2> <h2>{{list.task.length}}</h2></mat-card-title>
+                  <mat-card-subtitle><mat-progress-bar mode="determinate" [value]="progreesBar(list.task)" color="accent" class="progress"></mat-progress-bar>
+                  </mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content>
+                  <div class="taks-item" *ngFor="let task of list.task" dir="rtl">
+                    <div class="action-date-contianer">
+                      <button mat-icon-button [matMenuTriggerFor]="menu" class="btn-more">
+                        <mat-icon>more_vert</mat-icon>
+                      </button>
+                      <mat-menu #menu="matMenu" class="mat-menu">
+                        <button mat-menu-item>
+                          <mat-icon>dialpad</mat-icon>
+                          <span>Editar</span>
+                        </button>
+                        <button mat-menu-item (click)="removeTask(task.id)">
+                          <mat-icon>delete_forever</mat-icon>
+                          <span>Excluir</span>
+                        </button>
+                      </mat-menu>
+                    </div>
+                    <mat-selection-list #shoes  class="task-item-container">
+                      <mat-list-option  [selected]="task.done" (click)="doneTask(task.id, task.done)" formControlName="done">
+                        <div class="task-item-display">
+                          <div class="action-date-contianer">
+                            <span class="delivary-date" [ngStyle]="{'background-color': _functionShare.refDateColor(task)}">
+                               {{_functionShare.modifyDateString(task?.delivery_date?.toString() ?? '')}}</span>
+                           </div>
+                           <span>{{task.title}}</span>
+                      </div>
+                      </mat-list-option>
+                    </mat-selection-list>
+                   </div>
+                </mat-card-content>
+                <mat-card-actions class="action-task">
+                  <button mat-button (click)="opemTaskItem(list.id)">+ Adicionar Tarefa</button>
+                  <button class="remove-list" mat-button (click)="removeList(list.id)">- Excluir Lista</button>
+                </mat-card-actions>
+              </mat-card>
             </div>
           </div>
 
@@ -82,7 +102,7 @@
                 </div>
               </div>
             </div>
-            <div class="comments-list" *ngFor="let comment of cardData.comment">
+            <div class="comments-list" *ngFor="let comment of cardData?.comment">
               <div class="comment">
                 <div class="comment-avatar">
                   <img src="../../../../assets/perfil-image.jpg" alt="">
@@ -107,13 +127,13 @@
     <div class="main-actions">
       <span>Ações do Cartão</span>
       <button (click)="opemMember($event)"><mat-icon>perm_identity</mat-icon> Membros</button>
-      <button (click)="opemTask($event)"><mat-icon>list_alt</mat-icon> CheckList</button>
+      <button (click)="opemTask($event, TaskModalComponent)"><mat-icon>list_alt</mat-icon> CheckList</button>
       <button><mat-icon>unarchive</mat-icon> Anexo</button>
       <div class="main-action-members">
         <span>Membros</span>
         <div class="member-container">
           <mat-chip-grid>
-            <mat-chip-row *ngFor="let members of cardData.membersCard" class="item-container" [matTooltip]="members.primary_name + ' ' + members.second_name" >
+            <mat-chip-row *ngFor="let members of cardData?.membersCard" class="item-container" [matTooltip]="members.primary_name + ' ' + members.second_name" >
             <!-- <mat-chip-row *ngFor="let members of cardData.membersCard" (removed)=""> -->
               <button (click)="openPerfilModal(members.id)" class="button-perfil">
                 <img  matChipAvatar  src="https://material.angular.io/assets/img/examples/shiba1.jpg" alt="Photo of a Shiba Inu"/>

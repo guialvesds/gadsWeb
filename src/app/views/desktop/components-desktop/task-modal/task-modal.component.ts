@@ -33,7 +33,7 @@ export class TaskModalComponent {
       title: this.listTaskForm.value.title,
     }
     this._cardData
-      .addTaskCard(this.data.cardId, data)
+      .addListTaskCard(this.data.cardId, data)
       .subscribe({
         next: (res) => {
           this.addTaskSucess = true;

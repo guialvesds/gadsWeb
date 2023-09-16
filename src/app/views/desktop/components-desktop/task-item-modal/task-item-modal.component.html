@@ -2,39 +2,50 @@
 
   <div class="header">
     <div></div>
-    <span>Membros</span>
+    <span>Tarefas</span>
     <button mat-dialog-close>
       <mat-icon>close</mat-icon>
     </button>
   </div>
+  <div class="notification">
+    <p *ngIf="addTaskSucess" class="sucess">Adicionado com sucesso!</p>
+    <p *ngIf="addTaskError" class="error">Erro ao adicionar.</p>
+  </div>
   <div class="main">
-    <input type="text" name="search-member" placeholder="Nome, Sobrenome e E-mail" (input)="searchs($event)" #searchMember>
-    <p *ngIf="addTaskSucess"  class="sucess">Adicionado com sucesso!</p>
-    <p  *ngIf="addTaskError" class="error">Erro ao adicionar.</p>
-    <div class="member-in-card">
-      <cdk-virtual-scroll-viewport autosize appendOnly itemSize="5" class="scroll">
-        <form [formGroup]="taskForm">
-          <mat-selection-list formControlName="memberSelected">
-            <mat-list-option *ngFor="let task of taksData" [value]="task.id"  [selected]="verifyMemberInCard(task.id)">
-              {{task.primary_name + ' ' + task.second_name}}
-            </mat-list-option>
-          </mat-selection-list>
-        </form>
-      </cdk-virtual-scroll-viewport>
-      <!-- <div class="member-on-card">
-        <cdk-virtual-scroll-viewport autosize appendOnly itemSize="5" class="scroll">
-          <form [formGroup]="memberForm">
+    <form [formGroup]="taskForm">
+      <div class="inputs-form-container">
+        <label for="title">Titúlo</label>
+        <input type="text" name="title" placeholder="Nova Tarefa" formControlName="title">
+        <div class="input-date">
+          <div class="input-date-1">
+            <mat-label>Data de Entrega</mat-label>
+            <input matInput [matDatepicker]="dp" placeholder="DD/MM/AAAA" formControlName="delivery_date">
+          </div>
+          <div class="input-date-2">
+            <mat-datepicker-toggle matIconSuffix [for]="dp"></mat-datepicker-toggle>
+            <mat-datepicker #dp></mat-datepicker>
+          </div>
+        </div>
+      </div>
+      <!-- Membros -->
+      <div class="members" *ngIf="membersInCard?.length >= 1">
+        <h4>Membros</h4>
+        <input type="text" name="search-member" placeholder="Nome, Sobrenome e E-mail" (input)="searchs($event)"
+          #searchMember>
+        <div class="member-in-card">
+          <cdk-virtual-scroll-viewport autosize appendOnly itemSize="5" class="scroll">
             <mat-selection-list formControlName="memberSelected">
-              <mat-list-option *ngFor="let shoe of membersInCard" [value]="shoe.id">
-                {{shoe.primary_name + ' ' + shoe.second_name}}
+              <!-- <mat-list-option *ngFor="let member of membersInCard" [value]="member.id" [selected]="verifyMemberInCard(member.id)"> -->
+              <mat-list-option *ngFor="let member of membersInCard" [value]="member.id">
+                {{member.primary_name + ' ' + member.second_name}}
               </mat-list-option>
             </mat-selection-list>
-          </form>
-        </cdk-virtual-scroll-viewport>
-      </div> -->
-    </div>
+          </cdk-virtual-scroll-viewport>
+        </div>
+      </div>
+    </form>
     <div class="buttons">
-      <button class="cancel-button" (click)="send()">Adicionar</button>
+      <button class="cancel-button" (click)="addListTask()">Adicionar</button>
       <button class="add-button" mat-dialog-close>Cancelar</button>
     </div>
   </div>

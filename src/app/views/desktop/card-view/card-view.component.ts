@@ -14,6 +14,7 @@ import { FunctionShare } from 'src/app/share/function-share';
 import { ModalShare } from 'src/app/share/modal-share';
 import { MemberModalComponent } from '../components-desktop/member-modal/member-modal.component';
 import { TaskModalComponent } from '../components-desktop/task-modal/task-modal.component';
+import { TaskItemModalComponent } from '../components-desktop/task-item-modal/task-item-modal.component';
 
 @Component({
   selector: 'app-card-view',
@@ -21,17 +22,24 @@ import { TaskModalComponent } from '../components-desktop/task-modal/task-modal.
   styleUrls: ['./card-view.component.scss'],
 })
 export class CardViewComponent implements OnInit {
-  public cardData!: Card | any;
+  public cardData?: Card | any;
   public description: boolean = false;
   public cancelEditDescription: boolean = true;
+  public taksInCad?: Card['listTask'];
 
   public cardForm: FormGroup = this._formBuild.group({
     description: new FormControl(''),
     commentCard: new FormControl(''),
+    done: new FormControl(''),
   });
 
   public modalOpen: boolean = false;
   public panelOpenState: boolean = true;
+
+  public TaskItemModalComponent: any = TaskItemModalComponent;
+  public TaskModalComponent: any = TaskModalComponent;
+
+  public progress?: any;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: number,
@@ -57,8 +65,8 @@ export class CardViewComponent implements OnInit {
     const modalData = {
       x: event.clientX,
       y: event.clientY,
-      desktopId: this.cardData.desktopId,
-      cardId: this.cardData.id,
+      desktopId: this.cardData?.desktopId,
+      cardId: this.cardData?.id,
     };
 
     const dialogRef = this._dialogRef.open(MemberModalComponent, {
@@ -70,19 +78,32 @@ export class CardViewComponent implements OnInit {
     this.refrashCloseDialog(dialogRef);
   }
 
-  public opemTask(event: MouseEvent) {
+  public opemTask(event: MouseEvent, modal: any) {
     this.modalOpen = true;
 
     const modalData = {
       x: event.clientX,
       y: event.clientY,
-      cardId: this.cardData.id,
+      cardId: this.cardData?.id,
     };
 
-    const dialogRef = this._dialogRef.open(TaskModalComponent, {
+    const dialogRef = this._dialogRef.open(modal, {
       autoFocus: false,
       data: modalData,
       position: { left: modalData.x + 'px', top: modalData.y + 'px' },
+    });
+
+    this.refrashCloseDialog(dialogRef);
+  }
+
+  public opemTaskItem(idList: number): void {
+    const data = {
+      cardId: this.cardData.id,
+      listId: idList,
+    }
+    const dialogRef = this._dialogRef.open(TaskItemModalComponent, {
+      data: data,
+      position: { left: '40%', top: '10%' },
     });
 
     this.refrashCloseDialog(dialogRef);
@@ -163,44 +184,100 @@ export class CardViewComponent implements OnInit {
   // Deleta um membro do card
 
   public removeMember(userId: number): void {
-
-    const data: Object = {}
+    const data: Object = {};
 
     this._cardSevice.removeMemberCard(this.data, userId, data).subscribe({
       next: (res) => {
         this.findCard();
-
       },
       error: (err) => {
         console.error(err);
+      },
+    });
+  }
+
+  public openPerfilModal(userId: number): void {
+    const data: number = Number(userId);
+
+    this._modalShare.openPerfilModal(data);
+  }
+
+  public removeList(idList: number) : void {
+    this._cardSevice.removeListCard(idList).subscribe({
+      next: (res) => {
+        this.findCard();
+      }, error: (err) => {
+        console.error(err.message);
 
       }
     });
   }
 
-  public openPerfilModal(userId: number): void {
+  public removeTask(idTask: number) : void {
+    this._cardSevice.removeTaskCard(idTask).subscribe({
+      next: (res) => {
+        this.findCard();
+      }, error: (err) => {
+        console.error(err.message);
 
-    const data: number = Number(userId);
+      }
+    });
+  }
 
-    this._modalShare.openPerfilModal(data);
+  public progreesBar(dados: any): any {
+    const total = dados.length;
+    const completed = dados.reduce(
+      (done: number, task: { done: any }) =>
+        (done += Number(task.done)),
+      0
+    );
+   return this.progress = completed / total * 100;
+    console.log(total, completed, this.progress);
+  }
+
+  public doneTask(idTask: number, done: boolean): void {
+
+    const data = {
+      done: true
+    }
+
+    if(done === true){
+      data.done = false
+    } else {
+      data.done = true
+    }
+
+    this._cardSevice.editTask(idTask, data).subscribe({
+      next: () => {
+        this.findCard();
+      },
+      error: (err) => {
+        console.error(err.message);
+
+      }
+    });
+
+    console.log('form', this.cardForm);
 
   }
+
 
   // Busca um card pelo id passado pelo data do modal.
   private findCard(): void {
     this._cardSevice
       .finOnCard(this.data)
       .pipe(
-        map((member) => ({
-          ...member,
-          res: member.body,
-
+        map((data) => ({
+          ...data,
+          res: data.body,
         }))
       )
       .subscribe({
         next: ({ res }) => {
-          this.cardData = res;
-          console.log(res);
+          this.cardData = res!;
+          this.taksInCad = res!.listTask;
+          console.log('resposta do card', res);
+          console.log('resposta do card com task', this.taksInCad);
         },
         error: (err) => {
           console.error(err);

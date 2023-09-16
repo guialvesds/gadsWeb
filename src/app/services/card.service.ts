@@ -79,11 +79,42 @@ export class CardService {
     );
   }
 
-  public addTaskCard(
+  public addListTaskCard(
     idCard: number,
-    data: Object,
+    data: Object
   ): Observable<HttpResponse<any>> {
     return this.http.post<any>(`${this.url}/list/${idCard}`, data, {
+      headers: this.head_obj,
+      observe: 'response',
+    });
+  }
+
+  public addTaskCard(
+    idList: number,
+    data: Object
+  ): Observable<HttpResponse<any>> {
+    return this.http.post<any>(`${this.url}/list/task/${idList}`, data, {
+      headers: this.head_obj,
+      observe: 'response',
+    });
+  }
+
+  public removeListCard(idList: number): Observable<HttpResponse<any>> {
+    return this.http.delete<any>(`${this.url}/list/${idList}`, {
+      headers: this.head_obj,
+      observe: 'response',
+    });
+  }
+
+  public removeTaskCard(idTask: number): Observable<HttpResponse<any>> {
+    return this.http.delete<any>(`${this.url}/list/task/${idTask}`, {
+      headers: this.head_obj,
+      observe: 'response',
+    });
+  }
+
+  public editTask(idTask: number, data: any): Observable<HttpResponse<any>> {
+    return this.http.patch<any>(`${this.url}/list/task/${idTask}`, data, {
       headers: this.head_obj,
       observe: 'response',
     });
