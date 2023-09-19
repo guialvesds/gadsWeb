@@ -235,7 +235,11 @@
                       padding-block: 3px;
                       font-size: 0.85em;
                       border-radius: 5px;
+                      direction: rtl;
+
                     }
+
+
 
                   }
 
@@ -531,6 +535,7 @@
     }
   }
 }
+
 
 ::-webkit-scrollbar {
   width: 0px;

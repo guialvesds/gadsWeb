@@ -69,8 +69,8 @@
                       <mat-list-option  [selected]="task.done" (click)="doneTask(task.id, task.done)" formControlName="done">
                         <div class="task-item-display">
                           <div class="action-date-contianer">
-                            <span class="delivary-date" [ngStyle]="{'background-color': _functionShare.refDateColor(task)}">
-                               {{_functionShare.modifyDateString(task.delivery_date ?? '')}}</span>
+                            <span class="delivary-date" id="delivary-date" [ngStyle]="{'background-color': _functionShare.refDateColor(task)}">
+                               {{modifyDateString(task.delivery_date)}}</span>
                            </div>
                            <span>{{task.title}}</span>
                       </div>
