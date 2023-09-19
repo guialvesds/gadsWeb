@@ -50,6 +50,7 @@ import { TaskModalComponent } from './components-desktop/task-modal/task-modal.c
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatExpansionModule} from '@angular/material/expansion';
 import { TaskItemModalComponent } from './components-desktop/task-item-modal/task-item-modal.component';
+import { TaskItemModalEditComponent } from './components-desktop/task-item-modal-edit/task-item-modal-edit.component';
 
 
 @NgModule({
@@ -62,6 +63,7 @@ import { TaskItemModalComponent } from './components-desktop/task-item-modal/tas
     CardViewComponent,
     TaskModalComponent,
     TaskItemModalComponent,
+    TaskItemModalEditComponent,
   ],
   imports: [
     CommonModule,
@@ -86,7 +88,7 @@ import { TaskItemModalComponent } from './components-desktop/task-item-modal/tas
     MatChipsModule,
     MatTooltipModule,
     MatProgressBarModule,
-    MatExpansionModule
+    MatExpansionModule,
   ],
   providers: [
     { provide: ModalShare },

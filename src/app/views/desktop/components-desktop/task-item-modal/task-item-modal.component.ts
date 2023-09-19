@@ -23,6 +23,7 @@ export class TaskItemModalComponent implements OnInit {
   public taskForm: FormGroup = this._formBuild.group({
     title: new FormControl('', [Validators.required]),
     delivery_date: new FormControl(''),
+    memberSelected: new FormControl(''),
   });
 
   constructor(
@@ -59,11 +60,9 @@ export class TaskItemModalComponent implements OnInit {
 
           console.log('log enviar tarefa', res);
 
-
           setTimeout(()=> {
-
+            this.addMemberInTask(res.body.id)
           },2000);
-
 
         },
         error: (err) => {
@@ -75,6 +74,31 @@ export class TaskItemModalComponent implements OnInit {
 
     this.addTaskSucess = false;
     this.addTaskError = false;
+  }
+
+  public addMemberInTask(idTask:  number): void {
+
+    const data = {};
+
+    this._cardData.addMembersTaskCard(idTask, this.taskForm.value.memberSelected, data).subscribe({
+      next: (res) => {
+        this.addTaskSucess = true;
+
+        console.log('log enviar tarefa', res);
+
+
+        setTimeout(()=> {
+
+        },2000);
+
+
+      },
+      error: (err) => {
+        this.addTaskError = true;
+        console.error(err);
+      },
+    });
+
   }
 
   public searchs(e: Event): void {

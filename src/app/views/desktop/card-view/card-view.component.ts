@@ -15,6 +15,7 @@ import { ModalShare } from 'src/app/share/modal-share';
 import { MemberModalComponent } from '../components-desktop/member-modal/member-modal.component';
 import { TaskModalComponent } from '../components-desktop/task-modal/task-modal.component';
 import { TaskItemModalComponent } from '../components-desktop/task-item-modal/task-item-modal.component';
+import { TaskItemModalEditComponent } from '../components-desktop/task-item-modal-edit/task-item-modal-edit.component';
 
 @Component({
   selector: 'app-card-view',
@@ -103,7 +104,20 @@ export class CardViewComponent implements OnInit {
     }
     const dialogRef = this._dialogRef.open(TaskItemModalComponent, {
       data: data,
-      position: { left: '40%', top: '10%' },
+      position: { left: '40%', top: '5%' },
+    });
+
+    this.refrashCloseDialog(dialogRef);
+  }
+
+  public opemTaskModalEdit(idTask: number): void {
+    const data = {
+      cardId: this.cardData.id,
+      taskId: idTask,
+    }
+    const dialogRef = this._dialogRef.open(TaskItemModalEditComponent, {
+      data: data,
+      position: { left: '40%', top: '5%' },
     });
 
     this.refrashCloseDialog(dialogRef);
