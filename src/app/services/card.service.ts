@@ -125,18 +125,35 @@ export class CardService {
     idUser: number,
     data: Object
   ): Observable<HttpResponse<any>> {
-    return this.http.patch<any>(`${this.url}/list/task/${idTask}/addMember/${idUser}`, data, {
+    return this.http.patch<any>(
+      `${this.url}/list/task/${idTask}/addMember/${idUser}`,
+      data,
+      {
+        headers: this.head_obj,
+        observe: 'response',
+      }
+    );
+  }
+
+  public findTask(idTask: number): Observable<HttpResponse<any>> {
+    return this.http.get<any>(`${this.url}/list/task/${idTask}`, {
       headers: this.head_obj,
       observe: 'response',
     });
   }
 
-  public findTask(
-    idTask: number,
+  public removeMemberTask(
+    id: number,
+    userId: number,
+    data: any
   ): Observable<HttpResponse<any>> {
-    return this.http.get<any>(`${this.url}/list/task/${idTask}`, {
-      headers: this.head_obj,
-      observe: 'response',
-    });
+    return this.http.patch<any>(
+      `${this.url}/list/task/${id}/removeMember/${userId}`,
+      data,
+      {
+        headers: this.head_obj,
+        observe: 'response',
+      }
+    );
   }
 }

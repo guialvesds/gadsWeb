@@ -110,10 +110,13 @@ export class CardViewComponent implements OnInit {
     this.refrashCloseDialog(dialogRef);
   }
 
-  public opemTaskModalEdit(idTask: number): void {
+  public opemTaskModalEdit(idTask: number, titleTask: string, deliveryTask: string, doneTask: boolean): void {
     const data = {
       cardId: this.cardData.id,
       taskId: idTask,
+      title: titleTask,
+      delivery_date: deliveryTask,
+      done: doneTask,
     }
     const dialogRef = this._dialogRef.open(TaskItemModalEditComponent, {
       data: data,

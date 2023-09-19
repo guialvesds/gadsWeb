@@ -18,41 +18,43 @@ import { CardService } from 'src/app/services/card.service';
 export class TaskItemModalEditComponent implements OnInit {
   public addTaskSucess: boolean = false;
   public addTaskError: boolean = false;
-  public taksData!: Task;
-  public taksAllData!: any;
+  public taskD?: Task;
+  public membersInTaskAll!: any;
   public membersInTask!: any;
 
   public taskEditForm: FormGroup = this._formBuild.group({
-    titleTask: new FormControl(this.taksData ? this.taksData.title : '', [Validators.required]),
-    delivery_date: new FormControl( this.taksData ? this.taksData.delivery_date : ''),
+    titleTask: new FormControl(this.data ? this.data.title : ''),
+    delivery_date: new FormControl(this.data ? this.data.delivery_date : ''),
     memberSelected: new FormControl(''),
-  });;
+  });
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private _cardData: CardService,
     private _formBuild: FormBuilder
   ) {}
-
   ngOnInit(): void {
-    this.getTask();
+    this.findTask();
+    console.log(this.data);
   }
 
   public addListTask(): void {
     const data: Object = {
-      title: this.taskEditForm?.value.titleTask,
-      delivery_date: this.taskEditForm?.value.delivery_date,
-      done: false,
+      title: this.taskEditForm.value.titleTask,
+      delivery_date: this.taskEditForm.value.delivery_date,
+      done: this.data.done,
     };
-    this._cardData.addTaskCard(this.data.listId, data).subscribe({
+    this._cardData.editTask(this.data.taskId, data).subscribe({
       next: (res) => {
         this.addTaskSucess = true;
 
         console.log('log enviar tarefa', res);
 
-        setTimeout(() => {
-          this.addMemberInTask(res.body.id);
-        }, 2000);
+        if (this.taskEditForm.value.memberSelected.length >=1) {
+          setTimeout(() => {
+            this.addMemberInTask(res.body.id);
+          }, 2000);
+        }
       },
       error: (err) => {
         this.addTaskError = true;
@@ -67,28 +69,29 @@ export class TaskItemModalEditComponent implements OnInit {
   public addMemberInTask(idTask: number): void {
     const data = {};
 
+    console.log(this.taskEditForm);
+
+
     this._cardData
-      .addMembersTaskCard(idTask, this.taskEditForm?.value.memberSelected, data)
+      .removeMemberTask(idTask, this.taskEditForm?.value.memberSelected, data)
       .subscribe({
         next: (res) => {
           this.addTaskSucess = true;
-
-          console.log('log enviar tarefa', res);
-
-          setTimeout(() => {}, 2000);
         },
         error: (err) => {
           this.addTaskError = true;
           console.error(err);
         },
       });
+      this.addTaskSucess = false;
+      this.addTaskError = false;
   }
 
   public searchs(e: Event): void {
     const target = e.target as HTMLInputElement;
     const value = target.value;
 
-    this.taksData = this.taksAllData.filter(
+    this.taskD = this.membersInTaskAll.filter(
       (item: { primary_name: string; second_name: string; email: string }) => {
         return (
           item.primary_name!.toLowerCase().includes(value) ||
@@ -99,26 +102,19 @@ export class TaskItemModalEditComponent implements OnInit {
     );
   }
 
-  public getTask(): void {
-    this._cardData
-      .findTask(this.data.taskId)
-      .pipe(
-        map((data) => ({
-          ...data,
-          res: data.body,
-        }))
-      )
-      .subscribe({
-        next: ({ res }) => {
-          this.taksData = res;
-          this.taksAllData = res;
-          this.membersInTask = res?.membersTask;
-          console.log(this.taksData);
-          this.taskEditForm.value.titleTask = res.title
-        },
-        error: (err) => {
-          console.error(err);
-        },
-      });
+  public findTask(): void {
+    this._cardData.findTask(this.data.taskId).subscribe({
+      next: (res) => {
+        this.taskD = res.body;
+        this.membersInTaskAll = res.body;
+        this.membersInTask = res.body.membersTask;
+
+        console.log('dados', res.body);
+
+      },
+      error: (err) => {
+        console.error(err);
+      },
+    });
   }
 }
