@@ -7,7 +7,7 @@
   </div>
   <div class="image-container">
     <div class="avatar-upload">
-      <div class="avatar-edit">
+      <div class="avatar-edit" *ngIf="this._functionShare.thisUser(this.data)">
         <input type="file" id="profile-picture" (change)="onFileSelected($event)" accept="image/*">
         <label for="profile-picture"><mat-icon class="icon">add_photo_alternate</mat-icon></label>
       </div>
@@ -27,6 +27,6 @@
     <p>Perfil: Admin</p>
   </div>
   <div class="footer">
-    <button (click)="logOff()">Sair</button>
+    <button *ngIf="this._functionShare.thisUser(this.data)" (click)="logOff()">Sair</button>
   </div>
 </span>

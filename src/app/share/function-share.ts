@@ -4,6 +4,15 @@ import { Injectable } from '@angular/core';
 export class FunctionShare {
   constructor() {}
 
+
+  //Valida user logado é igual ao da chamada
+  public thisUser(userGet: number): boolean {
+    const userLogged: number = Number(localStorage.getItem('accus'));
+    console.log(userGet , userLogged);
+
+    return userGet === userLogged ? true : false;
+  }
+
   // Valida cor pelo tempo que falta para chegar na data de entrega {
   public refDateColor(c: any) {
     if (this.validRed(this.getDiffDate(c))) {

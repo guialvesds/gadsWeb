@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 import { map, retry } from 'rxjs';
 import { User } from 'src/app/models/User.model';
 import { USerService } from 'src/app/services/user.service';
+import { FunctionShare } from 'src/app/share/function-share';
 
 @Component({
   selector: 'app-perfil',
@@ -31,6 +32,7 @@ export class PerfilComponent implements OnInit {
     private _userService: USerService,
     private _route: Router,
     private _dialogRef: MatDialog,
+    public _functionShare: FunctionShare,
   ) {}
 
   ngOnInit(): void {

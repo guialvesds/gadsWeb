@@ -284,7 +284,7 @@ export class CardViewComponent implements OnInit {
     const mounth = date.substring(5, 7);
     const year = date.substring(2, 4);
 
-    let fullDate: string = ` ${day} /${mounth} /${year}`;
+    let fullDate: string = `${year}/ ${mounth}/ ${day} `;
 
     const str: string = fullDate.toString();
 
