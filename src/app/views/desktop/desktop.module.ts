@@ -51,6 +51,7 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatExpansionModule} from '@angular/material/expansion';
 import { TaskItemModalComponent } from './components-desktop/task-item-modal/task-item-modal.component';
 import { TaskItemModalEditComponent } from './components-desktop/task-item-modal-edit/task-item-modal-edit.component';
+import { FileModalComponent } from './components-desktop/file-modal/file-modal.component';
 
 
 @NgModule({
@@ -64,6 +65,7 @@ import { TaskItemModalEditComponent } from './components-desktop/task-item-modal
     TaskModalComponent,
     TaskItemModalComponent,
     TaskItemModalEditComponent,
+    FileModalComponent,
   ],
   imports: [
     CommonModule,

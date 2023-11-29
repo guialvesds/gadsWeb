@@ -16,6 +16,7 @@ import { MemberModalComponent } from '../components-desktop/member-modal/member-
 import { TaskModalComponent } from '../components-desktop/task-modal/task-modal.component';
 import { TaskItemModalComponent } from '../components-desktop/task-item-modal/task-item-modal.component';
 import { TaskItemModalEditComponent } from '../components-desktop/task-item-modal-edit/task-item-modal-edit.component';
+import { FileModalComponent } from '../components-desktop/file-modal/file-modal.component';
 
 @Component({
   selector: 'app-card-view',
@@ -58,6 +59,25 @@ export class CardViewComponent implements OnInit {
 
   get title() {
     return this.cardForm.get('title')!;
+  }
+
+  public opemFile(event: MouseEvent) {
+    this.modalOpen = true;
+
+    const modalData = {
+      x: event.clientX,
+      y: event.clientY,
+      desktopId: this.cardData?.desktopId,
+      cardId: this.cardData?.id,
+    };
+
+    const dialogRef = this._dialogRef.open(FileModalComponent, {
+      autoFocus: false,
+      data: modalData,
+      position: { left: modalData.x + 'px', top: modalData.y + 'px' },
+    });
+
+    this.refrashCloseDialog(dialogRef);
   }
 
   public opemMember(event: MouseEvent) {

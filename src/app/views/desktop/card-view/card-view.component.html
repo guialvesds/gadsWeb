@@ -86,6 +86,8 @@
             </div>
           </div>
 
+          <!-- Files -->
+
           <!-- Comentários -->
           <div class="model-form-main">
             <div class="model-form-main-title">
@@ -128,7 +130,7 @@
       <span>Ações do Cartão</span>
       <button (click)="opemMember($event)"><mat-icon>perm_identity</mat-icon> Membros</button>
       <button (click)="opemTask($event, TaskModalComponent)"><mat-icon>list_alt</mat-icon> CheckList</button>
-      <button><mat-icon>unarchive</mat-icon> Anexo</button>
+      <button (click)="opemFile($event)"><mat-icon>unarchive</mat-icon> Anexo</button>
       <div class="main-action-members">
         <span>Membros</span>
         <div class="member-container">

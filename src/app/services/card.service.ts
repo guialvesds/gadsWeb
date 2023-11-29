@@ -156,4 +156,15 @@ export class CardService {
       }
     );
   }
+
+  public addFile(idCard: number, data: any): Observable<HttpResponse<any>> {
+    return this.http.post<any>(`${this.urlApi}/file/card/${idCard}`, data, {
+      headers: this.head_obj,
+      observe: 'response',
+    });
+  }
+
+  public removeFile(idCard: number): void {
+    this.http.delete<any>(`${this.urlApi}/file/card/${idCard}`);
+  }
 }
